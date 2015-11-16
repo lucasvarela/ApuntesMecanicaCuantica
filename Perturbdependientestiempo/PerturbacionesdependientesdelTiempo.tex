@@ -1,0 +1,737 @@
+\documentclass[oneside]{book}
+\usepackage{braket}
+\usepackage[latin1]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage[pdftex]{color,graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{calligra}
+\usepackage{algpseudocode} 
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+\setlength{\oddsidemargin}{0cm}
+\setlength{\textwidth}{490pt}
+\setlength{\topmargin}{-40pt}
+\addtolength{\hoffset}{-0.3cm}
+\addtolength{\textheight}{4cm}
+\usepackage{amssymb}
+
+\usepackage{graphicx} % Required for the inclusion of images
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\newcommand{\ho}{$\widehat{H}_0$}
+\newcommand{\psio}{$\ket{\psi(0)}$}
+\newcommand{\psit}{$\ket{\psi(t)}$}
+
+
+\begin{document}
+
+\begin{center}
+\textsc{\LARGE Mec\'anica cu\'antica II}\\[0.5cm]
+\textsc{\LARGE Teor\'ia de Perturbaciones dependientes del Tiempo}\\[0.5cm]
+\textsc{\large Autor: LVA}\\[0.5cm]
+\end{center}
+
+\begin{center}
+\begin{tabular}{l r}
+\large
+Notas de clase del Profesor: Luis Quiroga Puello% Instructor/supervisor
+\normalsize
+\end{tabular}
+\end{center} %\\[0.5cm]
+%\author{  }\\[0.5cm] % Author name
+\textbf{\large Estas son las notas de clase tomadas en el semestre 20151 en la clase Mec\'anica Cu\'antica II dictada por el profesor Luis Quiroga en La Universidad de los Andes. Estas notas son escritas por un alumno y pueden contener errores, uselas con precauci\'on.}
+
+
+\begin{equation*}
+ i\hbar \frac{d \;b_m^{(r)}(t)}{dt}= \sum_{k} e^{i\omega_{m,k}t} V_{m,k}(t) \;b_k^{(r-1)}(t)
+\end{equation*}
+
+
+\textbf{Transición a orden $\lambda^1$:}
+
+\begin{equation*}
+P_{n\rightarrow m}(t)=\frac{1}{\hbar^2}\left| \int_{0}^{t} dt' e^{i\omega_{m,k}t'} V_{m,k}(t')\right|^2
+\end{equation*}
+
+
+\begin{equation*}
+V_{m,k}(t) =  \braket{\phi_m|\widehat{V}(t)| \phi_k}
+\end{equation*}
+
+
+\begin{equation*}
+\omega_{m,k}= (E_m-E_k)/\hbar
+\end{equation*}
+
+
+\begin{equation*}
+ \frac{1}{\omega_{m,n}} \leq t \leq \frac{\hbar}{|\braket{\phi_m|\widehat{V}|\phi_n}|}
+\end{equation*}
+
+\textbf{Regla de Oro de Fermi:}
+
+\begin{equation*}
+W_n(\alpha_f) = \frac{\pi}{2\hbar} |\braket{\beta,E=E_n +\hbar \omega|\widehat{V}|\phi_n}|^2 \; \rho(\beta,E=E_n +\hbar \omega)
+\end{equation*}
+
+
+\begin{equation*}
+\rho(\beta,E=E_n +\hbar \omega)
+\end{equation*}
+
+\begin{equation*}
+|\braket{\beta,E=E_n +\hbar \omega|\widehat{V}|\phi_n}|^2 
+\end{equation*}
+
+\tableofcontents
+\pagebreak
+
+
+\chapter{Introducci\'on}
+
+Se estudiar\'a el m\'etodo de teor\'ia de perturbaciones dependientes del tiempo. Los hamiltonianos que se estudian son de la forma (\ref{1}), donde $\widehat{V}(t)$ es la perturbaci\'on. $\widehat{H}_0$ es un hamiltoniano que se conoce, con sus estados propios $\ket{\phi_n}$ y energ\'ias propias $E_n$ (como se muestra en la ecuaci\'on (\ref{2})).
+
+\begin{equation}
+\label{1} \widehat{H}(t) = \widehat{H}_0 + \lambda \widehat{V}(t)
+\end{equation}
+
+
+\begin{equation}
+\label{2} \widehat{H}_0  \ket{\phi_n} = E_n \ket{\phi_n}
+\end{equation}
+
+Para que este m\'etodo sea efectivo la perturbaci\'on debe tener un efecto pequeño comparado con $\widehat{H}_0$, lo que se representar\'a como (\ref{3}).
+
+
+\begin{equation}
+\label{3}    |\widehat{V}(t) |\ll |\widehat{H}_0 |
+\end{equation}
+
+La din\'amica del sistema es determinada por la ecuaci\'on de Schrödinger (\ref{4}).
+
+
+
+\begin{equation}
+\label{4} i \hbar \frac{d}{dt} \ket{\psi(t)}   =\widehat{H}(t) \ket{\psi(t)} 
+\end{equation}
+
+
+Lo que se desea conocer es la probabilidad de una transici\'on de un estado a otro. Para ello se comienza por considerar algunas limitaciones al problema.\\[0.5cm]
+
+\chapter{Transiciones Discretas}
+
+El primer modelo que se analiza es uno en el cual el hamiltoniano conocido ($\widehat{H}_0$) tiene un espectro discreto de energ\'ias. Adem\'as se asume que $V(t<0) = 0$ y que el estado en el tiempo cero es un estado propio de \ho.\\
+
+\textbf{SUPOSICIONES DEL MODELO:}
+
+\begin{itemize}
+\item  $V(t<0) = 0$ : Potencial que se prende para $t>0$.
+\item  \psio $ = \ket{\phi_n}$ : El estado inicial es un estado propio de \ho.
+\item $E_n$ : Las energias propias de \ho  \ son discretas.
+\item $|\widehat{V}(t) |\ll |\widehat{H}_0 |$ : La perturbaci\'on tiene un efecto pequeño comparado con \ho.
+\end{itemize}
+
+\textbf{Problema:} Conocer la probabilidad de transici\'on de una estado inicial $\ket{\phi_n}$ a un estado $\ket{\phi_m}$ luego de un tiempo $t$ donde ambos son estado propios de \ho.\\
+
+\textbf{Soluci\'on Exacta:} En el caso en el que se conoce la soluci\'on exacta la probabilidad de transci\'on $P_{n\rightarrow m}$ est\'a dada por (\ref{5}).
+
+
+\begin{equation}
+\label{5}   P_{n\rightarrow m} = |\braket{\phi_m|\psi(t)} |^2
+\end{equation}
+
+\textbf{Soluci\'on Aproximada:}
+Sin embargo conocer la soluci\'on exacta \psit \ es generalmente inalcanzable. Por lo tanto, se procede a mirar una soluci\'on aproximada. Antes de hacer la aproximaci\'on se manipula la ecuaci\'on de Schrödinger para obtener una expressi\'on en t\'erminos de los coeficientes de la expansi\'on de la soluci\'on exacta en la base de los estados propios de \ho. Primero se comienza por expresar \psit \ como combinaci\'on lineal de la base $\{ \ket{\phi_k} \}$ (\ref{6}).
+
+\begin{equation}
+\label{6} \ket{\psi(t)}  = \sum_{k} c_k(t) \ket{\phi_k}
+\end{equation}
+
+Esta soluci\'on se introduce en la ecuaci\'on de Schrödinger (\ref{4}).
+
+\begin{equation}
+\label{7} i\hbar \frac{d}{dt} \left(\sum_{k} c_k(t) \ket{\phi_k} \right) = \left(  \widehat{H}_0 + \lambda \widehat{V}(t)\right) \sum_{k} c_k(t) \ket{\phi_k}
+\end{equation}
+
+La ecuaci\'on (\ref{7}) se proyecta sobre  $\bra{\phi_m}$:
+
+\begin{equation}
+\label{8} i\hbar \frac{d}{dt} \left(\sum_{k} c_k(t) \braket{\phi_m |\phi_k} \right) = \bra{\phi_m} \widehat{H}_0 + \lambda \widehat{V}(t)| \sum_{k} c_k(t) \ket{\phi_k}
+\end{equation}
+
+
+\begin{equation}
+\label{9} i\hbar \frac{dc_m(t)}{dt}  = \sum_{k} c_k(t) \left( E_k \delta_{k,m}  + \lambda \braket{\phi_m|\widehat{V}(t)| \phi_k}\right)
+\end{equation}
+
+Se identifica $ V_{m,k}(t) =  \braket{\phi_m|\widehat{V}(t)| \phi_k}$
+
+\begin{equation}
+\label{10} i\hbar \frac{dc_m(t)}{dt}  = E_k c_m(t) +\lambda\sum_{k} c_k(t)   V_{m,k} 
+\end{equation}
+
+
+
+
+Se observa que para el caso  $ V_{m,k} = 0$ se obtiene el caso conocido:
+
+\begin{equation}
+\label{11} i\hbar \frac{dc_m(t)}{dt}  = E_k c_m(t) 
+\end{equation}
+
+\begin{equation}
+\label{12} c_m(t) =  c_m(0)\; e^{-iE_{m}t/\hbar}
+\end{equation}
+
+\section{Aproximaci\'on por Teor\'ia de Perturbaciones:} Hasta ahora no se ha hecho ninguna aproximaci\'on. La aproximaci\'on se hace asumiendo que los coeficientes $c_m(t)$ se pueden escribir de la forma (\ref{13}).
+
+
+\begin{equation}
+\label{13} c_m(t) =  b_m(t)\; e^{-iE_{m}t/\hbar}
+\end{equation}
+
+Introduciendo (\ref{13}) en (\ref{10}) se obtiene:
+
+\begin{equation}
+\label{14} i\hbar \frac{db_m(t)}{dt}e^{-iE_{m}t/\hbar} +  E_{m}b_m(t)\; e^{-iE_{m}t/\hbar}= E_k  b_m(t)\; e^{-iE_{m}t/\hbar} +\lambda\sum_{k} b_k(t)\; e^{-iE_{m}t/\hbar}   V_{m,k} 
+\end{equation}
+
+\begin{equation}
+\label{15} i\hbar \frac{db_m(t)}{dt}e^{-iE_{m}t/\hbar} =\lambda\sum_{k} b_k(t)\; e^{-iE_{m}t/\hbar}   V_{m,k} 
+\end{equation}
+
+Se define $\omega_{m,k}= (E_m-E_k)/\hbar$ \ por lo que se obtiene:
+
+\begin{equation}
+\label{16} i\hbar \frac{db_m(t)}{dt}e^{-iE_{m}t/\hbar} =\lambda\sum_{k} b_k(t)\; e^{-i\omega_{m,k}}   V_{m,k} 
+\end{equation}
+
+Ahora se hace una expansi\'on en serie de potencias de $b_m(t)$ para luego truncarla al orden deseado.
+
+
+
+\begin{equation}
+\label{17} b_m(t) = \sum_{j=0}^{\infty} \lambda^j \; b_m^{(j)} (t) = b_m^{(0)} + \lambda b_m^{(1)} + \lambda^2 b_m^{(2)} + \dots
+\end{equation}
+
+
+\begin{equation}
+\label{18} b_m^{(j)}(t)  \longrightarrow j: \textnormal{orden en el que aparece } \lambda
+\end{equation}
+
+Para algunos \'ordenes se tiene:\\
+
+
+\textbf{Orden $\lambda^0$}
+
+
+
+\begin{equation}
+\label{19} \frac{d \;b_m^{(0)}(t)}{dt}= 0
+\end{equation}
+
+\begin{equation}
+\label{20} b_m^{(0)}(t)= b_m^{(0)} (0)
+\end{equation}
+
+\textbf{Orden $\lambda^1$}
+
+
+\begin{equation}
+\label{21} i\hbar \frac{d \;b_m^{(1)}(t)}{dt}= \sum_{k} e^{i\omega_{m,k}t} V_{m,k}(t) \;b_k^{(0)}(t)
+\end{equation}
+
+
+
+
+\textbf{Orden $\lambda^r$}
+
+
+
+\begin{equation}
+\label{22} i\hbar \frac{d \;b_m^{(r)}(t)}{dt}= \sum_{k} e^{i\omega_{m,k}t} V_{m,k}(t) \;b_k^{(r-1)}(t)
+\end{equation}
+
+Ahora debido a la condici\'on inicial que se hizo en las suposiciones se obtiene la condici\'on (\ref{23}).
+
+\begin{equation}
+\label{23} b_m(0) = \delta_{m,n}
+\end{equation}
+
+Esta condici\'on tiene las siguientes implicaciones:
+
+\begin{equation}
+\label{24} b_m^{(0)}(0) = \delta_{m,n}
+\end{equation}
+
+\begin{equation}
+\label{25} b_m^{(r\neq 0)}(0) =0  
+\end{equation}
+
+Y adem\'as por la ecuaci\'on (\ref{20}):
+\begin{equation}
+\label{26} b_m^{(0)}(t) = \delta_{n,m}
+\end{equation}\\
+
+\section{Transiciones Discretas a Primer Orden ($\lambda^1$)}:\\
+
+Con el formalismo desarrollado anteriormente se puede calcular el coeficiente $b_m^{(1)}(t)$ y con \'el calcular la probabilidad de transici\'on a primer orden. De la ecuaci\'on (\ref{21}) junto con la condici\'on (\ref{26}) se sigue que:
+
+
+
+\begin{equation}
+\label{27} i\hbar \frac{d \;b_m^{(1)}(t)}{dt}= \sum_{k} e^{i\omega_{m,k}t} V_{m,k}(t)\; \delta_{k,n}
+\end{equation}
+
+\begin{equation}
+\label{28} i\hbar \frac{d \;b_m^{(1)}(t)}{dt}=  e^{i\omega_{m,n}t} V_{m,n}(t)\; 
+\end{equation}
+
+\begin{equation}
+\label{29} b_m^{(1)}=\frac{-i}{\hbar} \int_{0}^{t} dt' e^{i\omega_{m,k}t'} V_{m,k}(t')
+\end{equation}
+ 
+Ahora suponiendo que $m\neq n$ (ya que de lo contrario habr\'ia que agregar otro t\'ermino), se obtiene la probabilidad de transici\'on dada por (\ref{30}).
+
+
+\begin{equation}
+\label{30} P_{n\rightarrow m}(t) = |b_m^{(1)}(t)|^2
+\end{equation}
+
+
+\begin{equation}
+\label{31} P_{n\rightarrow m}(t)=\frac{1}{\hbar^2}\left| \int_{0}^{t} dt' e^{i\omega_{m,k}t'} V_{m,k}(t')\right|^2
+\end{equation}
+
+Se recuerda la forma del t\'ermino $V_{m,n}(t)$ dado por (\ref{32}) y de $\omega_{m,n}$ dado por (\ref{33}). El t\'ermino $V_{m,n}(t)$ tiene especial importancia ya que este tiene la informaci\'on de lo que se conoce como reglas de selecci\'on.
+
+\begin{equation}
+\label{32}V_{m,k}(t) =  \braket{\phi_m|\widehat{V}(t)| \phi_k}
+\end{equation}
+
+
+\begin{equation}
+\label{33} \omega_{m,k}= (E_m-E_k)/\hbar
+\end{equation}
+
+
+\textbf{REGLAS DE SELECCI\'ON:} Estas reglas hablan de cu\'ales transiciones son prohibidas a algun orden. Por ejemplo si el t\'ermino $V_{m,n}(t)=0$, se dice que la transici\'on del estado $n$ al $m$ es prohibido en primer orden de la teor\'ia de perturbaciones dependientes del tiempo.\\[0.5cm]
+
+
+\section{ L\'imites de Validez para el Tiempo a Primer Orden $(\lambda^1)$}
+
+
+Se tiene la siguiente relaci\'on para dar un rango de validez (que no garantiza que funcione en el rango, solo que por fuera de \'el definitivamente no funciona).
+
+
+
+
+\begin{equation}
+\label{44} \frac{1}{\omega_{m,n}} \leq t \leq \frac{\hbar}{|\braket{\phi_m|\widehat{V}|\phi_n}|}
+\end{equation}\\[0.5cm]
+
+
+
+
+\chapter{Ejemplos}
+
+\section{ Perturbaci\'on Periodica Tipo $ \sin(\omega t)$}
+
+El potencial que se considera es de la forma dada en la ecuaci\'on (\ref{34}).
+
+\begin{equation}
+\label{34} \widehat{V}(t)=\widehat{V} \sin(\omega t)
+\end{equation}
+
+
+\begin{equation}
+\label{35} V_{m,n}=\braket{\phi_m|\widehat{V}|\phi_n} \frac{e^{i\omega t}- e^{-i\omega t}}{2i}
+\end{equation}
+
+
+\begin{equation}
+\label{36} P_{n\rightarrow m}(t)=\frac{|\braket{\phi_m|\widehat{V}|\phi_n}|^2}{4\hbar^2}\left| \frac{1-e^{i(\omega_{m,n} +\omega ) t}}{\omega_{m,n} +\omega }   - \frac{1-e^{i(\omega_{m,n} -\omega ) t}}{\omega_{m,n} -\omega }        \right|^2
+\end{equation}
+
+
+\begin{equation}
+\label{37} \frac{1-e^{i(\omega_{m,n} +\omega ) t}}{\omega_{m,n} +\omega }  \qquad \longrightarrow \textnormal{T\'ermino de Anti-Resonancia}
+\end{equation}
+
+\begin{equation}
+\label{38} \frac{1-e^{i(\omega_{m,n} -\omega ) t}}{\omega_{m,n} -\omega }  \qquad \longrightarrow \textnormal{T\'ermino de Resonancia}
+\end{equation}
+
+
+El t\'ermino dado por (\ref{37}) es el de anti-resonancia, si $\omega_{m,n}>0$ hay emisi\'on.El t\'ermino dado por (\ref{38}) es el de anti-resonancia, si $\omega_{m,n}>0$ hay absorci\'on.\\
+
+
+\section{ Perturbaci\'on Periodica Tipo $ \cos(\omega t)$}
+
+
+El potencial es dado ahora por (\ref{39}):
+
+\begin{equation}
+\label{39} \widehat{V}(t)=\widehat{V} \cos(\omega t)
+\end{equation}
+
+La probabilidad de transici\'on aqu\'i es casi identica a la del caso anterior, solo cambia un signo.
+
+\begin{equation}
+\label{40} P_{n\rightarrow m}(t)=\frac{|\braket{\phi_m|\widehat{V}|\phi_n}|^2}{4\hbar^2}\left| \frac{1-e^{i(\omega_{m,n} +\omega ) t}}{\omega_{m,n} +\omega }   + \frac{1-e^{i(\omega_{m,n} -\omega ) t}}{\omega_{m,n} -\omega }        \right|^2
+\end{equation}
+
+\section{ Perturbaci\'on Tipo Heaviside (Funci\'on Escal\'on) $ H(t)$}
+
+El potencial en este caso es:
+
+\begin{equation}
+\label{41} \widehat{V}(t)=\widehat{V} H(t)
+\end{equation}
+
+Se define la funci\'on $F(t,\omega_{m,n})$.
+
+\begin{equation}
+\label{42} F(t,\omega_{m,n}) = \left( \frac{\sin \left(   \omega_{m,n} t/2  \right)}{ \omega_{m,n} t/2 } \right)^2
+\end{equation}
+
+Se obtiene para la probabilidad de transci\'on:
+
+\begin{equation}
+\label{43} P_{n\rightarrow m}(t)=\frac{|\braket{\phi_m|\widehat{V}|\phi_n}|^2}{4\hbar^2} F(t,\omega_{m,n})
+\end{equation}
+
+
+\section{Aplicaci\'on: Interacci\'on Radiaci\'on - Materia }
+
+\textbf{Teor\'ia semi-cl\'asica:} Se tratar\'a la luz como una onda cl\'asica con un vector de onda $\vec{k}$. Para este ejemplo se trabajar\'a con un campo electromagn\'etico dado por las ecuaciones (\ref{45}) y (\ref{46})
+
+
+\begin{equation}
+\label{45} \vec{E}(\vec{r},t) = \mathcal{E} cos(ky-wt) \;\hat{k}
+\end{equation}
+
+
+
+\begin{equation}
+\label{46} \vec{B}(\vec{r},t) = \mathcal{B} cos(ky-wt)\; \hat{i}
+\end{equation}
+
+
+Un potencial vectorial y escalar que sirven para describir estos campos estan dados por (\ref{47}) y (\ref{48}):
+
+\begin{equation}
+\label{47} V(\vec{r},t) = 0
+\end{equation}
+
+\begin{equation}
+\label{48} \vec{A}(\vec{r},t) =\left( A_0 e^{i(ky-wt)} +A_0^* e^{-i(ky-wt)}\right) \; \hat{k}
+\end{equation}
+
+El hamiltoniano que se considera es dado por (\ref{49}). El hamiltoniano conocido es \ho \ dado por (\ref{50}) y la perturbaci\'on por $\widehat{W}(t )$ dada por (\ref{51}) .
+
+
+\begin{equation}
+\label{49} \widehat{H} = \frac{1}{2m_e} \left( \underset{\rightarrow}{\widehat{P}}-q\vec{A}(\underset{\rightarrow}{\widehat{r}},t)  \right)^2 + \widehat{V}(\vec{r}) - \frac{q}{m_e} \underset{\rightarrow}{\widehat{S}}\cdot \vec{B}(\underset{\rightarrow}{\widehat{r}},t) 
+\end{equation}
+
+\begin{equation}
+\label{50} \widehat{H}_0 = \frac{1}{2m_e}\underset{\rightarrow}{\widehat{P}}^2 + \widehat{V}(\vec{r})
+\end{equation}
+
+\begin{equation}
+\label{51} \widehat{W}(t) = -\frac{q}{m_e}\underset{\rightarrow}{\widehat{P}}\cdot\vec{A}(\underset{\rightarrow}{\widehat{r}},t)  - \frac{q}{m_e}\underset{\rightarrow}{\widehat{S}}\cdot \vec{B}(\underset{\rightarrow}{\widehat{r}},t)  + \frac{q^2}{2m_e}  \left[\vec{A}(\underset{\rightarrow}{\widehat{r}},t)\right]^2
+\end{equation}
+
+\textbf{Nota:} $ \vec{A}$ y $ \vec{B}$ se convierten en operadores ya que son evaluados en la posici\'on del electr\'on que es un operador.\\
+
+Ahora se va a estimar el orden de magnitud de cada sumando de la perturbaci\'on. 
+
+\begin{equation}
+\label{52} \widehat{W}_{I}(t) = -\frac{q}{m_e}\underset{\rightarrow}{\widehat{P}}\cdot\vec{A}(\underset{\rightarrow}{\widehat{r}},t) 
+\end{equation}
+
+\begin{equation}
+\label{53} \widehat{W}_{II}(t) =- \frac{q}{m_e}\underset{\rightarrow}{\widehat{S}}\cdot \vec{B}(\underset{\rightarrow}{\widehat{r}},t) 
+\end{equation}
+
+\begin{equation}
+\label{54} \widehat{W}_{III}(t) =  \frac{q^2}{2m_e}  \left[\vec{A}(\underset{\rightarrow}{\widehat{r}},t) \right]^2
+\end{equation}
+
+El t\'ermino $\widehat{W}_{III}(t) $ va proporcional a la intensidad por lo que se puede despreciar a bajas intensidades. Comparando los t\'erminos $\widehat{W}_{I}(t) $ y $\widehat{W}_{II}(t) $ se observa que $  |\widehat{W}_{II}(t)| \ll| \widehat{W}_{I}(t) | $.
+
+
+\begin{equation}
+\label{55} 
+\frac{|\widehat{W}_{II}|}{|\widehat{W}_{I}|} \sim \frac{q\hbar k A_0/m_e}{q p A_0 /m_e} = \frac{\hbar k}{p} \simeq \frac{a_0}{\lambda} \sim \frac{0.5}{5000} \ll 1
+\end{equation}
+
+En la ecuaci\'on anterior (\ref{55}) se uso $a_0$, el radio de bohr y $\lambda$ una longitud del orden de luz visible. Por estas consideraciones es razonable ignorar  $\widehat{W}_{II}$
+y mirar primero como se comporta \ho \ con una perturbaci\'on solo de $\widehat{W}_{I}$.
+
+\begin{equation}
+\label{56} \widehat{W}_{I}(t) = \frac{q}{m_e} \widehat{P}_z \left[ A_0 e^{i(k\hat{y}-wt)} +A_0^* e^{-i(k\hat{y}-wt)} \right]
+\end{equation}
+
+Se hace una expansi\'on de  $e^{ \pm ik\hat{y}}$:
+
+\begin{equation}
+\label{57} e^{ \pm ik\widehat{y}} = 1 \pm ik\hat{y} - \frac{1}{2}k^2 \hat{y}^2 + \dots
+\end{equation}
+
+
+\begin{equation}
+\label{58} |k\hat{y}| \simeq \frac{a_0}{\lambda} \ll 1
+\end{equation}
+
+
+\begin{equation}
+\label{59} e^{ \pm ik\widehat{y}} \approx 1
+\end{equation}
+
+Se observa que la perturbaci\'on toma la forma dada por (\ref{60}). Esta aproximaci\'on es conocida como \textbf{APROXIMACI\'ON DIPOLAR EL\'ECTRICA (DE)}.
+
+\begin{equation}
+\label{60} \widehat{W}_{I}^{(DE)}(t) = \frac{q \mathcal{E}}{m_e w} \widehat{P}_z \sin {\omega t}
+\end{equation}
+
+Ahora se procede a calcular los elemenos matriciales $  \bra{\phi_m}\widehat{W}_{I}^{(DE)}(t)\ket{\phi_n}$:
+
+\begin{equation}
+\label{61}\bra{\phi_m}\widehat{W}_{I}^{(DE)}(t)\ket{\phi_n} = \frac{q \mathcal{E}}{m_e w}  \sin {\omega t} \bra{\phi_m} \widehat{P}_z \ket{\phi_n}
+\end{equation}
+
+Notar la relaci\'on de conmutaci\'on (\ref{62}):
+
+
+\begin{equation}
+\label{62} \left[ \widehat{z} , \widehat{H}_0     \right]= i \hbar \frac{\partial \widehat{H} }{\partial \widehat{z}} = i \hbar \frac{\widehat{P}_z}{m_e}
+\end{equation}
+
+\begin{equation}
+\label{63} \left[ \widehat{z} , \widehat{H}_0     \right]= \widehat{z}\widehat{H}_0 - \widehat{H}_0\widehat{z}
+\end{equation}
+
+\begin{equation}
+\label{64}\bra{\phi_m}\widehat{P}_z\ket{\phi_n} = i m_e \omega_{m,n} \braket{\phi_m |\widehat{z}|\phi_n}
+\end{equation}
+
+Con estos resultados se obtiene la expresi\'on (\ref{65}) para el  elemento matricial $  \bra{\phi_m}\widehat{W}_{I}^{(DE)}(t)\ket{\phi_n}$.
+
+\begin{equation}
+\label{65}\bra{\phi_m}\widehat{W}_{I}^{(DE)}(t)\ket{\phi_n} = i \frac{\omega_{m,n} }{\omega} \mathcal{E} \braket{\phi_m |q\widehat{z}|\phi_n}
+\end{equation}\\
+
+\textbf{Reglas de Selecci\'on en Aproximaci\'on Dipolar El\'ectrica:} Primero se obtienen las funciones propias de \ho \ en representaci\'on posici\'on, donde se usar\'a el sub\'indice "$i$" en los n\'umeros cu\'anticos del estado inicial y "$f$" en los del estado final.
+
+
+\begin{equation}
+\label{66}\phi_m (\vec{r}) = \braket{\vec{r}|\phi_m} = R_{n_f, l_f}(r) Y_{n_f}^{m_f}(\theta,\phi)
+\end{equation}
+
+
+
+\begin{equation}
+\label{67}\phi_n (\vec{r}) = \braket{\vec{r}|\phi_m} = R_{n_i, l_i}(r) Y_{n_i}^{m_i}(\theta,\phi)
+\end{equation}
+
+
+
+
+\begin{equation}
+\label{68} \braket{\phi_m |q\widehat{z}|\phi_n} = q \int_{\mathbb{R}^3} d\vec{r}\; R_{n_f, l_f}(r) Y_{n_f}^{m_f *}(\theta,\phi)\; z\;  R_{n_i, l_i}(r) Y_{n_i}^{m_i}(\theta,\phi)
+\end{equation}
+
+Es conveniente escribir esta integral en coordenadas esf\'ericas:
+
+\begin{equation}
+\label{69} \braket{\phi_m |q\widehat{z}|\phi_n} = q \int d\Omega\int_{\mathbb{R}^+} dr \;r^2 R_{n_f, l_f}(r) Y_{n_f}^{m_f *}(\theta,\phi)\; r \cos \theta\;  R_{n_i, l_i}(r) Y_{n_i}^{m_i}(\theta,\phi)
+\end{equation}
+
+Se observa que $\cos \theta = \sqrt{\frac{4\pi}{3}} Y_1^0(\theta)$. Analizando la integral angular se obtienen las reglas de selecci\'on:
+
+\begin{equation}
+\label{70} \braket{\phi_m |q\widehat{z}|\phi_n} \sim  \int d\Omega  Y_{n_f}^{m_f *}(\theta,\phi)\; Y_1^0(\theta)  \;  Y_{n_i}^{m_i}(\theta,\phi)
+\end{equation}
+
+
+Para que esta integral no se anule se deben cumplir las siguientes condiciones:\\
+
+\textbf{Reglas de selecci\'on:}
+\begin{itemize}
+\item  $l_f - l_i = \pm 1$
+\item $m_f - m_i = 1,0,-1$
+\end{itemize}
+
+
+\section{Estados metaestables:} Son aquellos estados que por reglas de selecci\'on se demoran mucho en decaer, es decir, que a \'ordenes bajos la transici\'on de este estado a cualquier otro est\'a prohibido.\\
+
+
+\section{M\'as all\'a de la aproximaci\'on dipolar el\'ectrica:}
+
+
+
+
+\begin{equation}
+\label{72} \widehat{W}(t) = \widehat{W}_I^{(DE)} + [\widehat{W}_I(t)-\widehat{W}_I^{(DE)}] + \widehat{W}_{II}(t)
+\end{equation}
+
+\begin{equation}
+\label{73} \widehat{W}_I(t)-\widehat{W}_I^{(DE)} =-i \frac{qk}{m_e} [A_0 e^{i\omega t}-A_0^* e^{i\omega \widehat{y}}] \widehat{P}_z \widehat{y}
+\end{equation}
+
+\begin{equation}
+\label{74} \widehat{W}_I(t)-\widehat{W}_I^{(DE)} = -i \frac{q}{m_e} \mathcal{B} \cos (\omega t) \widehat{P}_z \; \widehat{y}
+\end{equation}
+
+Se observa la siguiente forma de escribir el operador $\widehat{P}_z \; \widehat{y}$:
+
+\begin{equation}
+\label{75} \widehat{P}_z \; \widehat{y} = \frac{1}{2}\left( \widehat{P}_z \; \widehat{y} - \widehat{z}\;\widehat{P}_y \right) + \frac{1}{2}\left( \widehat{P}_z \; \widehat{y} + \widehat{z}\;\widehat{P}_y \right)
+\end{equation}
+
+\begin{equation}
+\label{76} \widehat{P}_z \; \widehat{y} = \frac{1}{2}\widehat{L}_x + \frac{1}{2}\left( \widehat{P}_z \; \widehat{y} + \widehat{z}\;\widehat{P}_y \right)
+\end{equation}
+
+Por lo que se tiene la siguiente expresi\'on:
+
+\begin{equation}
+\label{77} \widehat{W}_I(t)-\widehat{W}_I^{(DE)} = -\frac{q}{2m_e} \widehat{L}_x \mathcal{B} \cos (\omega t) - \frac{q}{2m_e}\mathcal{B} \cos (\omega t) \left( \widehat{P}_z \; \widehat{y} + \widehat{z}\;\widehat{P}_y \right)
+\end{equation}
+
+
+\begin{equation}
+\label{78}\widehat{W}_{II}(t)  = -\frac{q}{m_e} \widehat{S}_x \mathcal{B}\cos (\omega t)
+\end{equation}
+
+Se tienen dos perturbaciones: $ \widehat{W}_{QE}(t)$ y $\widehat{W}_{DM}(t)$.  $ \widehat{W}_{QE}(t)$ es el t\'ermino cuadrupolar el\'ectrico y $\widehat{W}_{DM}(t)$ el dipolar magn\'etico.
+\begin{equation}
+\label{79} \widehat{W}_{QE}(t) = -\frac{q}{2m_e c}\left( \widehat{P}_z \; \widehat{y} + \widehat{z}\;\widehat{P}_y \right) \mathcal{E}\cos (\omega t)
+\end{equation}
+
+
+\begin{equation}
+\label{80} \widehat{W}_{DM}(t) =-\frac{q}{2m_e } \left( \widehat{L}_x  + 2\widehat{S}_x \right) \mathcal{B}\cos (\omega t)
+\end{equation}
+
+Se observa que del t\'ermino dipolar magnetico hay una contribuci\'on debida al dipolo magn\'etico dado por (\ref{81}) y la otra debido al dipolo magn\'etico del spin (\ref{82}).
+\begin{equation}
+\label{81} -\frac{q}{2m_e } \widehat{L}_x \mathcal{B}\cos (\omega t) \longrightarrow \textnormal{Dipolo magn\'etico orbital}
+\end{equation}
+
+
+\begin{equation}
+\label{82} -\frac{q}{m_e }  \widehat{S}_x \mathcal{B}\cos (\omega t) \longrightarrow \textnormal{Dipolo magn\'etico del spin}
+\end{equation}
+
+
+Se observa que para la probabilidad de transici\'on se deben mirar los elementos dados por (\ref{83}) y (\ref{84}).
+
+\begin{equation}
+\label{83} \widehat{W}_{QE}(t) \longrightarrow \braket{\phi_m|\widehat{P}_z \; \widehat{y} + \widehat{z}\;\widehat{P}_y | \phi_n }
+\end{equation}
+
+\textbf{Reglas de Selecci\'on Cuadrupolar El\'ectrico:}
+
+\begin{itemize}
+\item $ \Delta l = 0, \pm2$
+\item $\Delta m = 0, \pm1 ,\pm2 $
+\end{itemize}
+
+\begin{equation}
+\label{84} \widehat{W}_{DM}(t) \longrightarrow \braket{\phi_m|\widehat{L}_x  + 2\widehat{S}_x | \phi_n }
+\end{equation}
+
+\textbf{Reglas de Selecci\'on Dipolar Magn\'etica:}
+
+\begin{itemize}
+\item $ \Delta l = 0$
+\item $\Delta m = 0, \pm1  $
+\item $ \Delta m_s = 0, \pm 1$
+\end{itemize}
+
+
+\chapter{Regla de Oro de Fermi}
+
+Ahora se estudiar\'an las transiciones de energ\'ias discretas a energ\'ias continuas. Un ejemplo de esto es cuando un electr\'on pasa de un estado ligado del \'atomo (energ\'ias discretas) a estar libre (ionizarse, energ\'ias continuas). Como se tienen energ\'ias continuas es necesario introducir una densidad de probabilidad.
+
+\begin{equation}
+\label{85}  \delta P_n(\alpha_f,t) = \int_{\alpha \in D_f} d\alpha |\braket{\alpha|\psi(t)}|^2
+\end{equation}
+
+
+\begin{equation}
+\label{86} d\alpha =\rho(\beta,E) d\beta dE
+\end{equation}
+
+Donde $D_f$ es una franja de energ\'ias finales y $\rho(\beta,E)$ es la densidad de estados finales. 
+
+
+\begin{equation}
+\label{87}  \delta P_n(\alpha_f,t) = \int_{\alpha \in D_f} d\beta dE\; \rho(\beta,E)  |\braket{\beta,E|\psi(t)}|^2
+\end{equation}
+
+Se recuerda que a\'un no se ha hecho ninguna aproximaci\'on. Utilizando teor\'ia de perturbaciones a primer orden se obtiene:
+
+
+
+\begin{equation}
+\label{88}   |\braket{\beta,E|\psi(t)}|^2 = \frac{1}{4 \hbar^2} |\braket{\beta,E|\widehat{V}|\phi_n}|^2 F\left( t, \omega - \frac{E-E_n}{\hbar}\right)
+\end{equation}
+
+Donde se asumi\'o que el potencial era de la forma $\widehat{V}(t)= \widehat{V} \cos (\omega t)$. Por lo que a primer orden la densidad de probabilidades es:
+
+
+\begin{equation}
+\label{89}  \delta P_n(\alpha_f,t) = \int_{\alpha \in D_f} d\beta dE\; \rho(\beta,E)  \frac{1}{4 \hbar^2} |\braket{\beta,E|\widehat{V}|\phi_n}|^2 F\left( t, \omega - \frac{E-E_n}{\hbar}\right)
+\end{equation}\\
+
+Se hacen las siguientes suposiciones.
+\\
+
+\textbf{Suposiciones extras para Regla de Oro de Fermi:}
+
+\begin{itemize}
+\item $\lim\limits_{t \rightarrow \infty}  F\left( t, \omega - \frac{E-E_n}{\hbar}\right) =2 \pi t \delta\left(\omega - \frac{E-E_n}{\hbar} \right) = 2 \pi \hbar t \delta \left( \hbar\omega - E +E_n \right)$
+\item $ \delta \beta_f \ll 1$
+\item $ \delta E \ll 1$
+\end{itemize}
+
+
+Con estas nuevas suposiciones se obtiene la siguiente expresi\'on:
+
+\begin{equation}
+\label{90}  \delta P_n(\alpha_f,t) = \frac{\pi t}{2 \hbar}\delta\beta_f \;  \rho(\beta,E=E_n +\hbar \omega) \;  |\braket{\beta,E=E_n +\hbar \omega|\widehat{V}|\phi_n}|^2 
+\end{equation}
+
+Se define una densidad de probabilidad de transici\'on por unidad de tiempo y por unidad de intervalo $\beta_f$:
+
+
+\begin{equation}
+\label{91}  W_n(\alpha_f) = \frac{d}{dt \; d\beta_f} [\delta P_n(\alpha_f,t)]
+\end{equation}
+
+
+\begin{equation}
+\label{92}  W_n(\alpha_f) = \frac{\pi}{2\hbar} |\braket{\beta,E=E_n +\hbar \omega|\widehat{V}|\phi_n}|^2 \; \rho(\beta,E=E_n +\hbar \omega)
+\end{equation}
+
+La ecuaci\'on (\ref{92}) se conoce como la "Regla de Oro de Fermi". Se observa que hay dos componentes que contribuyen. La expresi\'on (\ref{93}) es la densidad de estados que dicta qu\'e tantos estados tiene en una franja a donde caer. Por otro lado la  expresi\'on (\ref{94}) tiene las reglas de selecci\'on que dicen qu\'e transiciones no van a ocurrir a primer orden.
+
+
+\begin{equation}
+\label{93}   \rho(\beta,E=E_n +\hbar \omega) \longrightarrow \text{Densidad de Estados}
+\end{equation}
+
+\begin{equation}
+\label{94}  |\braket{\beta,E=E_n +\hbar \omega|\widehat{V}|\phi_n}|^2 \longrightarrow  \text{Reglas de Selecci\'on}
+\end{equation}
+
+\end{document}

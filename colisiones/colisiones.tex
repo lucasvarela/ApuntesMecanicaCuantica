@@ -1,0 +1,880 @@
+\documentclass[oneside]{book}
+\usepackage{braket}
+\usepackage[latin1]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+
+\usepackage{enumitem}
+\usepackage[pdftex]{color,graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{calligra}
+\usepackage{algpseudocode} 
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+\setlength{\oddsidemargin}{0cm}
+\setlength{\textwidth}{490pt}
+\setlength{\topmargin}{-40pt}
+\addtolength{\hoffset}{-0.3cm}
+\addtolength{\textheight}{4cm}
+\usepackage{amssymb}
+\usepackage{graphicx} % Required for the inclusion of images
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\usepackage{float}
+\usepackage{makeidx}
+
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[scale = 0.42]{lcaoderecha}
+%	\caption{Eletr\'on ligado solo al núcleo derecho}
+%	\label{fig1}
+%	\end{figure}
+
+
+
+
+\begin{document}
+
+\begin{center}
+\textsc{\LARGE Mecánica Cuántica II}\\[0.5cm]
+\textsc{\LARGE Colisiones Elasticas Sin Creación Ni Aniquilación de Partículas}\\[0.5cm]
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{l r}
+\large
+Notas de clase del Profesor: Luis Quiroga Puello% Instructor/supervisor
+\normalsize
+\end{tabular}
+\end{center}
+
+\textbf{\large Estas son las notas de clase tomadas en el semestre 20151 en la clase Mec\'anica Cu\'antica II dictada por el profesor Luis Quiroga en La Universidad de los Andes. Estas notas son escritas por un alumno y pueden contener errores, uselas con precauci\'on.}
+
+
+\tableofcontents
+
+\pagebreak
+
+
+
+
+
+
+\chapter{Teoría}
+
+\section{Introducción }
+
+Considere un flujo o haz que incide en un blanco que consiste en $N$ centros dispersores. Se quiere conocer como sera la distribución de detección en función del ángulo,para distancias muy lejanas del centro dispersor.
+
+
+\begin{figure}[H]
+ \label{figint}	\centering
+ 	\includegraphics[scale = 0.27]{intro}
+ 	\caption{Experimento de dispersión en el que se hace incidir un haz en $N$ blancos.}
+ 	\label{intro}
+ \end{figure}
+
+
+En la figura (\ref{intro}) se muestra esquemáticamente la situación a considerar.
+
+\begin{equation}
+\label{1.1.1} F = \frac{\text{\# Partículas}}{\text{Tiempo}\times \text{Area}_{\perp}}
+\end{equation}
+
+\begin{equation}
+\label{1.1.2} [F] =\frac{1}{T\; D^2}
+\end{equation}
+
+El flujo de partículas se define en (\ref{1.1.1}) y tiene una dimensión inversa de área por tiempo como se muestra en la ecuación (\ref{1.1.2}). 
+
+\begin{equation}
+\label{1.1.3} dn =\frac{\text{\# Partículas que llegan al detector}}{Tiempo}
+\end{equation}
+
+\begin{equation}
+\label{1.1.4} d\Omega = \sin \theta d\theta d\phi
+\end{equation}
+
+
+\begin{equation}
+\label{1.1.5}  dn \sim  d\Omega 
+\end{equation}
+
+Se harán dos asunciones. Primero que el número de partículas detectadas por unidad de tiempo $dn$ es proporcional al ángulo solido $d\Omega$. Segundo que el blanco es suficientemente delgado para que una partícula incidente choque solo con una partícula del blanco.
+
+
+\begin{equation}
+\label{1.1.6}  dn = \chi(\Omega) N F  d\Omega 
+\end{equation}
+
+\begin{equation}
+\label{1.1.7}  n =  N F \int \chi(\Omega)   d\Omega = N F \sigma 
+\end{equation}
+
+
+\begin{equation}
+\label{1.1.8}  \sigma = \int \chi(\Omega)   d\Omega  
+\end{equation}
+
+\begin{equation}
+\label{1.1.9}  \chi(\Omega) =   \frac{d\sigma}{d\Omega}  
+\end{equation}
+
+La cantidad (\ref{1.1.8}) se conoce como la sección eficaz total y la 
+(\ref{1.1.9}) como la sección eficaz diferencial. El tratamiento anterior es válido desde un punto de vista clásico en el cual hay una trayectoria bien definida, pero en mecánica cuántica esto no vale y hay que hacer un tratamiento distinto. 
+
+
+
+\section{Mecánica Cuántica de Colisiones sin Aniquilación o Creación}
+
+
+Ahora se desea describir la situación planteada en la introducción pero con el formalismo de la mecánica cuántica. Para ello se considera un caso especial que tiene las siguientes restricciones:\\
+
+\textbf{Restricciones: }
+
+\begin{itemize}
+\item Colisiones Elásticas $E_f= E_i$.
+\item Potencial de corto alcance.
+\end{itemize}
+
+\begin{figure}[H]
+ \label{figcuan}	\centering
+ 	\includegraphics[scale = 0.27]{cuanti}
+ 	\caption{Panorama cuántico del experimento.}
+ 	\label{cuan}
+ \end{figure}
+ 
+En la figura (\ref{cuan}) se muestra la situación a considerar. Una onda plana incide sobre un centro dispersor que esta descrito por un potencial de corto alcance (por fuera de la esfera verde ya es nulo). Esta onda tiene un vector de onda $\vec{k}$ y un estado $\ket{\vec{k}}$. Tras interactuar con el centro dispersor queda en un estado $\ket{\psi}$ que es el que llega al detector. Como es una colisión elástica el vector de onda $\vec{k}'$ despues de la colisión tiene que cumplir que $|\vec{k}'| = |\vec{k}|$, para que la energía final e inicial sea la misma.
+ 
+\begin{equation}
+\label{1.2.1}  \widehat{H} = \widehat{H}_0 + \widehat{V}(\vec{r})  
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.2}  H_0 = \frac{\hbar^2 |\vec{k}|^2}{2m} 
+\end{equation}
+
+El hamiltoniano que describe la situación es (\ref{1.2.1}), donde $H_0$ corresponde a la parte cinética dada por (\ref{1.2.2}) y $\widehat{V}(\vec{r})$ es el potencial que genera el blanco.
+
+\begin{equation}
+\label{1.2.3}  \widehat{H}_0\ket{\phi}= E\ket{\phi} 
+\end{equation}
+
+\begin{equation}
+\label{1.2.4}   \left(\widehat{H}_0 + \widehat{V}\right)\ket{\psi} = E \ket{\psi}  
+\end{equation}
+
+Debido a que es una colisión elástica se tiene ambas ecuaciones de valores propios tienen el mismo valor para la energía(valor propio) $E$.
+
+\begin{equation}
+\label{1.2.5}  \left(E - \widehat{H}_0\right)\ket{\phi}= 0
+\end{equation}
+
+\begin{equation}
+\label{1.2.6}  \left(E - \widehat{H}_0\right)\ket{\psi}=  \widehat{V}\ket{\psi}
+\end{equation}
+
+Se reescribe las ecuaciones (\ref{1.2.3})  \& (\ref{1.2.4}) como se muestra en (\ref{1.2.5}) \& (\ref{1.2.6}) respectivamente.
+
+\begin{equation}
+\label{1.2.7}  \left(E - \widehat{H}_0\right) \widehat{G}(E) = \widehat{1}
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.8}  \widehat{G}(E) =  \left(E - \widehat{H}_0\right)^{-1}
+\end{equation}
+
+Se define el operador de Green que actúa como se muestra en (\ref{1.2.7}). Se puede decir que el operador de Green es el inverso multiplicativo del operador $E-\widehat{H}_0$, como se muestra en (\ref{1.2.8}). 
+
+
+\begin{equation}
+\label{1.2.9}  \left(E - \widehat{H}_0\right) \left( \ket{\psi} - \ket{\phi} \right) = \widehat{V} \ket{\psi}
+\end{equation}
+
+\begin{equation}
+\label{1.2.10} \ket{\psi}-\ket{\phi}= \widehat{G}\;\widehat{V} \ket{\psi}
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.11} \ket{\psi}=\ket{\phi}+ \widehat{G}\;\widehat{V} \ket{\psi}
+\end{equation}
+
+Sumando un cero a la ecuación (\ref{1.2.6}), se obtiene la ecuación (\ref{1.2.9}). Utilizando la definición del operador se obtiene (\ref{1.2.10}) y despejando se obtiene la expresión (\ref{1.2.11}) que se conoce como la ecuación de Lippmann Schwinger. 
+
+
+\begin{equation}
+\label{1.2.12} \braket{\vec{r}\;|\psi}=\braket{\vec{r}\;|\phi}+ \braket{\vec{r}\;|\widehat{G}\;\widehat{V} |\psi}
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.13} \psi(\vec{r})=\phi(\vec{r})+ \color{blue}\int d\vec{r'} \color{black}\braket{\vec{r}\;|\widehat{G}\color{blue}\ket{\vec{r'}}\bra{\vec{r'}}\color{black}\widehat{V} |\psi}
+\end{equation}
+
+Pasando la ecuación de Lippmann Schwinger a representación posición se obtiene la ecuación (\ref{1.2.12}) e introduciendo la relación de completes en representación posición se obtiene (\ref{1.2.13}). La relación de completes en representación posición se puso en azul para distinguirla.
+
+\begin{equation}
+\label{1.2.14} \psi(\vec{r})=\phi(\vec{r})+ \color{blue}\int d\vec{r'} \color{green}\int d\vec{r''}\color{black}\braket{\vec{r}\;|\widehat{G}\color{blue}\ket{\vec{r'}}\bra{\vec{r'}}\color{black}\widehat{V}\color{green}\ket{\vec{r''}}\bra{\vec{r''}}\color{black}\psi}
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.15} \braket{\vec{r'}\;|\widehat{V}|\vec{r''}} = \delta(\vec{r'}-\vec{r''}) \braket{\vec{r'}\;|\widehat{V}|\vec{r'}}
+\end{equation}
+
+Introduciendo otra relación de completes en representación posición se obtiene (\ref{1.2.14}). Se identifica que debido al tener un potencial local se tiene la relación (\ref{1.2.15}).
+
+\begin{equation}
+\label{1.2.16} \psi(\vec{r})=\phi(\vec{r})+ \int d\vec{r'}\;G(\vec{r},\vec{r'})V(\vec{r'}) \psi(\vec{r'})
+\end{equation}
+
+Por lo que la ecuación de Lippmann Schiwnger toma la forma de una ecuación integral(\ref{1.2.16}) en la representación posición.
+
+
+
+
+\begin{equation}
+\label{1.2.17}  \left(E - \widehat{H}_0\right) \widehat{G}(E) = \widehat{1}
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.18}  \left(E + \frac{\hbar^2}{2m} \nabla^2 \right) {G}(\vec{r},\vec{r'}) = \delta(\vec{r}-\vec{r'}) 
+\end{equation}
+
+Para encontrar la ecuación de Green se vuelve a la ecuación (\ref{1.2.17}) y se pasa a representación posición (\ref{1.2.18}). Lo que se obtiene es la ecuación de Helmholtz. Por lo que se requiere la  ecuación de Green para la ecuación diferencial de Helmholtz.
+
+\begin{equation}
+\label{1.2.19} \widehat{G}(\vec{r},\vec{r'}) = -\frac{1}{4\pi} \left(\frac{2m}{\hbar^2}\right) \frac{e^{\pm i k|\vec{r}-\vec{r'}|}}{|\vec{r}-\vec{r'}|} 
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.20} \psi(\vec{r})=\phi(\vec{r})- \frac{2m}{\hbar^2} \int d\vec{r'}\;  \frac{e^{\pm i k|\vec{r}-\vec{r'}|}}{4\pi|\vec{r}-\vec{r'}|}  V(\vec{r'}) \psi(\vec{r'})
+\end{equation}
+
+La ecuación de Green para la ecuación diferencial de Helmholtz es conocida y esta dada por (\ref{1.2.19}). Con esto se obtiene la ecuación integral que hay que resolver para encontrar la función de onda $\psi(\vec{r})$ (\ref{1.2.20}).\\
+
+\textbf{Comportamiento Asintótico:}
+
+\begin{figure}[H]
+ \label{figr}	\centering
+ 	\includegraphics[scale = 0.27]{r}
+ 	\label{r}
+ \end{figure}
+ 
+ \begin{align}
+ \label{1.2.21} |\vec{r}-\vec{r'}| = \sqrt{r^2 + r'^2 - 2r r' \cos \alpha} \\
+ \label{1.2.22} = r \sqrt{1 - 2\frac{r'}{r} \cos \alpha + \left(\frac{r'}{r}\right)^2}
+ \end{align}
+ 
+La expresión exacta para la norma de $\vec{r} - \vec{r'}$ se desarrolla utilizando la identidad para el producto punto y la norma (\ref{1.2.21}).
+
+\begin{equation}
+\label{1.2.23} r \gg r'
+\end{equation}
+
+\begin{equation}
+\label{1.2.24} r \sqrt{1 - 2\frac{r'}{r} \cos \alpha + \left(\frac{r'}{r}\right)^2} \simeq r - \hat{r}\cdot \vec{r'}
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.25} e^{\pm i k |\vec{r}-\vec{r'}|} \simeq e^{\pm ik r} e^{ \mp i\vec{k}'\cdot \vec{r'} }
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.26}  k \hat{r} = k' \hat{r} = \vec{k}'
+\end{equation}
+
+Como se esta mirando el comportamiento asintotico se tiene la ecuación (\ref{1.2.23}). De esta ecuación se puede hacer la aproximación (\ref{1.2.24}) \& (\ref{1.2.25}). En la ecuación (\ref{1.2.26}) se hace uso del hecho que se esta estudiando una colisión elástica que implica que la igualdad de las normas de los vectores de onda inicial y final,$k =k'$.
+
+
+
+\begin{equation}
+\label{1.2.27} \psi(\vec{r}\;) \xrightarrow{r \longrightarrow \infty} \frac{1}{(2\pi)^{\frac{3}{2}}}  \left[   e^{i\vec{k}\cdot\vec{r}} + \frac{e^{ikr}}{r} f(\vec{k},\vec{k}')\right] 
+\end{equation}
+
+\begin{equation}
+\label{1.2.28} f(\vec{k},\vec{k}') = -  \frac{2m(2\pi)^{\frac{3}{2}}}{4\hbar^2\pi}  \int d\vec{r'}\; {e^{\pm i \vec{k}' \cdot\vec{r}'}} V(\vec{r'}) \psi(\vec{r'})
+\end{equation}
+
+El comportamiento asintótico para la función de onda esta dado por (\ref{1.2.27}) en donde se introduce la función $f(\vec{k},\vec{k}')$. Esta función se define en la linea (\ref{1.2.28}) y se le conoce como amplitud de dispersión.
+
+\begin{equation}
+\label{1.2.29}  \vec{J}(\vec{r}) = \frac{1}{m} \Re \left\{ \psi^*(\vec{r}\;) \frac{\hbar}{i} \nabla \psi(\vec{r}\;) \right\}
+\end{equation}
+
+\begin{equation}
+\label{1.2.30} \frac{\partial \rho}{\partial t} + \nabla \cdot \vec{J}=0
+\end{equation}
+
+La corriente de probabilidad se define como (\ref{1.2.29}). Es consecuencia de la ecuación de Schrödinger que se cumpla la ecuación de continuidad (\ref{1.2.30}).
+\begin{equation}
+\label{1.2.31} \phi(\vec{r}) \sim e^{i\vec{k}\cdot\vec{r}} \xrightarrow{\hspace{1cm}} |\vec{J}_i| = \frac{\hbar k}{m}
+\end{equation}
+
+La onda incidente se comporta como una onda plana lo que implica que el flujo de probabilidad incidente se comporte como se muestra en la ecuación (\ref{1.2.31}).
+
+\begin{equation}
+\label{1.2.32} \psi(\vec{r}\;) \sim \frac{e^{ikr}}{r} f(\vec{k},\vec{k}') 
+\end{equation}
+
+Como ya se había mostrado, el comportamiento de la onda dispersada para $r\longrightarrow \infty$ es dado por (\ref{1.2.31}). Se quiere conocer entonces, como se comporta la corriente dispersada $J_D$ para $r$ muy grande.
+
+\begin{equation}
+\label{1.2.33} \left(\nabla \right)_r = \frac{\partial}{\partial r} \qquad; \qquad \left(\nabla \right)_{\theta} = \frac{1}{r}\frac{\partial}{\partial \theta} \qquad;\qquad \left(\nabla \right)_{\phi} = \frac{1}{r \sin\theta} \frac{\partial}{\partial \phi} 
+\end{equation}
+
+El operador nabla en coordenadas esféricas se descompone como se muestra en (\ref{1.2.31}). Se utilizara esto para mirar el comportamiento de cada componente por separado.
+
+\begin{equation}
+\label{1.2.34}  \left(\vec{J}_D \right)_{r} = \frac{\hbar k}{r^2m} |f(\vec{k},\vec{k}')|^2  \propto \frac{1}{r^2}
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.35}  \left(\vec{J}_D \right)_{\theta} = \frac{\hbar }{mr^3} \Re \left\{ -i f^*(\vec{k},\vec{k}') \frac{\partial}{\partial \theta} f(\vec{k},\vec{k}')  \right\} \propto \frac{1}{r^3}
+\end{equation}
+
+
+\begin{equation}
+\label{1.2.36}  \left(\vec{J}_D \right)_{\phi} = \frac{\hbar }{mr^3\sin\theta} \Re \left\{ -i f^*(\vec{k},\vec{k}') \frac{\partial}{\partial \phi} f(\vec{k},\vec{k}')  \right\} \propto \frac{1}{r^3}
+\end{equation}
+
+Se observa que el comportamiento de la parte azimutal y polar de la corriente es inversamente proporcional a $r$ cubo mientras que la contribución radial es inversamente proporcional a $r$ cuadrado. Esto implica que cuando $r$ es grande el término dominante es el radial y la norma estará dada aproximadamente solo por la magnitud del término radial.
+\begin{equation}
+\label{1.2.37}  \vec{J}_D \simeq \left(\vec{J}_D \right)_{r} \hat{r}
+\end{equation}
+
+
+
+\begin{equation}
+\label{1.2.38}  dn= \vec{J}_D\cdot d\vec{s} \simeq \vec{J}_D r^2 d\Omega = \frac{\hbar k}{m} |f(\vec{k},\vec{k}')|^2 = |\vec{J}_i|\;  |f(\vec{k},\vec{k}')|^2
+\end{equation}
+
+
+La expresión (\ref{1.2.38}) es la versión cuántica de $dn$, el número partículas que llegan al detector por unidad de tiempo.
+
+
+\begin{equation}
+\label{1.2.39}  \vec{J}_i\sim F
+\end{equation}
+
+
+
+\begin{equation}
+\label{1.2.40}  \chi(\Omega) = \frac{d \sigma}{d\Omega} = |f(\vec{k},\vec{k}')|^2
+\end{equation}
+
+
+Se observa que debido a que la corriente de probabilidad es análoga al flujo (\ref{1.2.39}), se tiene que tener que la sección eficaz diferencial tiene que estar dada por la norma al cuadrado de la amplitud de dispersión (\ref{1.2.40}).
+
+\chapter{Aproximación de Born}
+
+
+\section{Teoría del Método de Max Born}
+
+La aproximación de Born consiste en aproximar la ecuación de Lippmann Schwinger como se muestra a continuación:
+
+\begin{align*}
+\ket{\psi} = \ket{\phi} + \widehat{G}(E) \widehat{V} \ket{\psi}\\ \\
+\ket{\psi} \approx \ket{\phi} + \widehat{G}(E) \widehat{V} \ket{\phi}
+\end{align*}
+
+Por lo que se tiene que la amplitud de dispersión esta dada en la aproximación de Born por la transformada de Fourier del potencial, como se muestra en la ecuación (\ref{1}).
+
+\begin{equation}
+\label{1} f_B(\vec{k},\vec{k}')=-\frac{m}{2\pi \hbar^2} \int_{\mathbb{R}^3} d \vec{r}\; e^{i(\vec{k}-\vec{k}')\cdot \vec{r}} \;V\left(\vec{r}\right) 
+\end{equation}
+
+Para el caso especial en que el potencial es central $ V\left(\vec{r}\right) =V\left(r\right) $ se puede simplificar la expresión anterior introduciendo una nueva variable e integrando sobre el ángulo sólido.
+
+
+\begin{equation}
+\label{2}  q \equiv 2 k \sin \left(\frac{\theta}{2}\right)
+\end{equation}
+
+\begin{align*}
+f(\theta) = -\frac{1}{2} \frac{2m}{\hbar^2} \frac{1}{iq} \int_{\mathbb{R}^+}dr \frac{r^2}{r} V(r) \left( e^{iqr} -e^{-iqr}\right)\\ \\
+= -\frac{2m}{q\hbar^2} \int_{\mathbb{R}^+}dr \; r V(r) \sin (qr)
+\end{align*}
+
+Por lo que la expresión de la amplitud de dispersión para el potencial radial es dada por (\ref{3}).
+
+\begin{equation}
+\label{3}   f(\theta) =-\frac{2m}{q\hbar^2} \int_{\mathbb{R}^+}dr \; r V(r) \sin (qr) \qquad \textbf{Solo para un potencial central}
+\end{equation} 
+
+
+
+
+\section{Ejemplos de la Aproximación de Born: Potencial de Yukawa}
+
+
+\begin{equation}
+\label{2.2.1} V(\vec{r}\;) = aV_0 \frac{e^{-\frac{r}{a}}}{r}    
+\end{equation} 
+
+
+El potencial de Yukawa esta dado por la expresión (\ref{2.2.1}).
+
+\begin{equation}
+\label{2.2.2} f_B(\theta) = -\frac{-2m V_0 a}{4\pi \hbar^2} \int d\vec{r} \;     \frac{e^{-\frac{r}{a}}}{r}  e^{-i \vec{q}\cdot\vec{r}}  = -\frac{2m V_0 a^3}{ \hbar^2} \frac{1}{1+q^2 a^2}
+\end{equation} 
+
+
+\begin{equation}
+\label{2.2.3} f_B(\theta) = -\frac{2m V_0 a^3}{ \hbar^2} \frac{1}{1+ \left[2ka\sin(\theta/2)\right]^2}
+\end{equation} 
+
+La amplitud de dispersión en aproximación de Born esta dada por (\ref{2.2.2}).
+
+\begin{equation}
+\label{2.2.4} \left(\frac{d\sigma}{d\Omega}\right)_B=|f_B(\theta)|^2 = \frac{4m^2V_0^2 a^6}{ \hbar^4} \frac{1}{\left[1+ 4k^2a^2\sin^2(\theta/2)\right]^2}
+\end{equation} 
+
+\begin{equation}
+\label{2.2.5} \sigma_T = \frac{4m^2V_0^2 a^6}{ \hbar^4} \frac{4\pi}{1+ 4k^2a^2}
+\end{equation} 
+
+
+La sección diferencial y total en aproximación de Born son la expresiones (\ref{2.2.4}) \& (\ref{2.2.5}).
+
+\begin{equation}
+\label{2.2.6} V_0 a = z_1 z_2 e^2
+\end{equation} 
+
+
+
+\begin{equation}
+\label{2.2.7} \left(\frac{d\sigma}{d\Omega}\right)_B \xrightarrow[a\longrightarrow \infty]{V_0 \longrightarrow 0}  \frac{z_1^2 z_2^2 e^4}{16E^2\sin^4(\theta/2)}
+\end{equation} 
+
+
+Se observa que el potencial de Coulomb se recupera en el límite que se toma en (\ref{2.2.7}), donde se recupera el resultado clásico de Rutherford.
+
+
+\begin{figure}[H]
+ \label{figf}	\centering
+ 	\includegraphics[scale = 0.27]{dif}
+ 	\caption{Se observa que para $\vec{k}$ grande la longitud de onda la onda incidente empieza a ser del tamaño del núcleo en que incide generando difracción.}
+ 	\label{dif}
+ \end{figure}
+
+En la figura (\ref{dif}) se muestra como se comporta la razón de la sección eficaz diferencial para el potencial de Yukawa con la de Coulomb clásica. Para energías muy grandes, $\vec{k}$ es muy grande por lo que la longitud de onda para la onda incidente es muy pequeña. Cuando empieza a ser del tamaño del núcleo empieza a haber interferencia, lo cual se observa en la curva roja del dibujo.
+
+\section{Más allá de Born}
+
+
+\begin{equation}
+\label{2.3.1} \widehat{V} \ket{\psi} = \widehat{T} \ket{\phi}
+\end{equation} 
+
+Se define el operador transferencia que actua como se muestra en la ecuación (\ref{2.3.1}).
+\begin{equation}
+\label{2.3.2}  \ket{\psi} = \ket{\phi} +\widehat{G}(E) \widehat{V} \ket{\psi}= \ket{\phi} +\widehat{G}(E) \widehat{T} \ket{\phi}
+\end{equation} 
+
+
+\begin{equation}
+\label{2.3.3}  \widehat{V}\ket{\psi} = \widehat{V}\ket{\phi} + \widehat{V}\widehat{G}(E) \widehat{T} \ket{\phi}
+\end{equation} 
+
+
+\begin{equation}
+\label{2.3.4}  \widehat{T}\ket{\phi} = \widehat{V}\ket{\phi} + \widehat{V}\widehat{G}(E) \widehat{T} \ket{\phi}
+\end{equation} 
+
+Utilizando el operador transferencia se puede escribir la ecuación de Lippmann Schwinger como se muestra en (\ref{2.3.2}). Operando el potencial $\widehat{V}$ sobre la ecuación (\ref{2.3.2}) se obtiene (\ref{2.3.3}). Utilizando la definición del operador transferencia sigue la linea (\ref{2.3.4}).
+\begin{equation}
+\label{2.3.5}  \widehat{T} = \widehat{V} + \widehat{V}\widehat{G}(E) \widehat{T} 
+\end{equation} 
+
+
+
+\begin{equation}
+\label{2.3.6}  \widehat{T} = \widehat{V} + \widehat{V}\widehat{G}(E) \widehat{T} +  \widehat{V}\widehat{G}(E)\widehat{V}\widehat{G}(E)\widehat{V} + \dots
+\end{equation}
+
+De (\ref{2.3.4}) se obtiene la relación (\ref{2.3.5}) para el operador transferencia. De ella se puede obtener el operador transferencia como una serie de la función de green y el potencial (\ref{2.3.6}).
+
+\begin{equation}
+\label{2.3.7} f(\vec{k},\vec{k}') = -\frac{1}{4\pi} \frac{2m(2\pi)^3}{\hbar^2} \braket{\vec{k}'|\widehat{T}|\vec{k}}
+\end{equation}
+
+\begin{equation}
+\label{2.3.8} f(\vec{k},\vec{k}') = \sum_{n=1}^{\infty}f^{(n)}(\vec{k},\vec{k}') 
+\end{equation}
+
+La definición de la amplitud de dispersión es (\ref{2.3.7}), de donde sigue (\ref{2.3.8}).
+
+\begin{equation}
+\label{2.3.9} f^{(1)}(\vec{k},\vec{k}') =f_B(\vec{k},\vec{k}') = -\frac{1}{4\pi} \frac{2m(2\pi)^3}{\hbar^2} \braket{\vec{k}'|\widehat{V}|\vec{k}}
+\end{equation}
+
+
+\begin{equation}
+\label{2.3.10} f^{(2)}(\vec{k},\vec{k}')  = -\frac{1}{4\pi} \frac{2m(2\pi)^3}{\hbar^2} \braket{\vec{k}'|\widehat{V}\widehat{G}\widehat{V}|\vec{k}}
+\end{equation}
+
+El primer término de la expansión de la amplitud de dispersión es la aproximación de Born (\ref{2.3.9}). La corrección de orden 2 esta dada por la expresión (\ref{2.3.10}).
+
+\chapter{Método de Desfasajes }
+
+
+\section{Teoría del Método de Desfasajes }
+
+
+\begin{equation}
+\label{3.1.1} V(\vec{r}) = V(r)
+\end{equation}
+
+
+El método de desfasajes solo funciona para potenciales centrales. Sea $\{\ket{E,l,m}\}$ una base de ondas esféricas.
+
+\begin{equation}
+\label{3.1.2}\text{Partículas Libres}   \begin{cases}
+\braket{\vec{r}\;|\vec{k}} \sim e^{i\vec{k}\cdot\vec{r}}\\
+\braket{\vec{r}\;| E,l,m } \sim \sqrt{\frac{2k^2r^2}{\pi}} j_l(kr) Y_l^m(\theta, \phi)
+\end{cases}
+\end{equation}
+
+
+Se tiene que para partículas libres las funciones de onda son de la forma que se muestra en (\ref{3.1.2}), donde $j_l$ son las funciones de Bessel esféricas.
+
+\begin{equation}
+\label{3.1.3} j_l(\rho \longrightarrow 0) \sim \frac{\rho^l}{(2l+1)!!}
+\end{equation}
+
+
+\begin{equation}
+\label{3.1.4} j_l(\rho\longrightarrow \infty) \sim \frac{\sin(\rho^l-l\pi/2)}{\rho}
+\end{equation}
+
+Las funciones de Bessel esféricas se comportan como (\ref{3.1.3}) cuando están evaluadas cerca a 0 y como  (\ref{3.1.4}) cuando $\rho \longrightarrow \infty$.
+
+\begin{equation}
+\label{3.1.5} \mathcal{P}(r,\Omega) \sim r^2 j_l^2(kr) |Y_l^m(\theta,\phi)|^2
+\end{equation}
+
+
+\begin{equation}
+\label{3.1.6} \mathcal{P}(r\ll 1) \sim r^{2l+2}
+\end{equation}
+
+La densidad de probabilidad $\mathcal{P}(\vec{r})$ se comporta proporcional a las funciones que se muestran en (\ref{3.1.5}). Para $\rho \rightarrow 0$ domina el término que se muestra en (\ref{3.1.6}). Se observa que cerca al núcleo dispersor la probabilidad tiene una contribución dominante dada por las funciones con $l$ pequeño.
+\begin{equation}
+\label{3.1.7} e^{i\vec{k}\cdot \vec{r}} = \sum_{l=0}^{\infty} i^l \sqrt{4\pi(2l+1)} j_l(k r) Y_{l}^0(\theta)
+\end{equation}
+
+\begin{equation}
+\label{3.1.8} Y_{l}^0(\theta) = \sqrt{\frac{2l+1}{4\pi}} P_l(\cos \theta)
+\end{equation}
+
+
+\begin{equation}
+\label{3.1.9} e^{i\vec{k}\cdot \vec{r}} = \sum_{l=0}^{\infty} i^l (2l+1) j_l(k r)  P_l(\cos \theta)
+\end{equation}
+
+Utilizando (\ref{3.1.7}) \& (\ref{3.1.8}) se puede escribir una onda plana en coordenadas esféricas como se muestra en (\ref{3.1.9}).
+
+\begin{equation}
+\label{3.1.10} \psi_{k,l,m} (r,\theta,\phi) = R_{k,l}(r) Y_{l}^{m}(\theta,\phi) = \frac{u_{k,l}}{r} Y_{l}^m(\theta,\phi)
+\end{equation}
+
+
+\begin{equation}
+\label{3.1.11} \left[ -\frac{\hbar^2}{2\mu}\frac{d^2}{dr^2} + \frac{l(l+1)\hbar^2}{2\mu r^2} + V(r) \right] u_{k,l}(r) = \frac{\hbar^2 k^2}{2\mu}u_{k,l}(r)
+\end{equation}
+La función de onda para una onda que incide en un potencial central esta dada por una combinación lineal de las funciones $\psi_{k,l,m}$(\ref{3.1.10}), donde $u_{k,l}$ satisface la ecuación diferencial (\ref{3.1.11}). 
+
+
+\begin{equation}
+\label{3.1.12} \left(\frac{d^2}{dr^2} +k^2\right)u_{k,l}(r)=0
+\end{equation}
+
+\begin{equation}
+\label{3.1.13} u_{k,l}(r) \sim A e^{ikr} + B e^{-ikr}  = |A| e^{ikr} e^{i\phi_A} + |B| e^{-ikr} e^{i\phi_B}
+\end{equation}
+
+El comportamiento asintótico de $u_{k,l}$ satisface la ecuación diferencial (\ref{3.1.12}) que tiene como solución (\ref{3.1.13}).
+\begin{equation}
+\label{3.1.14} u_{k,l}(r) \sim C \sin\left( kr-\beta l \right)
+\end{equation}
+
+La solución (\ref{3.1.13}) se puede reescribir como (\ref{3.1.14}).
+
+\begin{equation}
+\label{3.1.15} u_{k,l}(r) \sim C \sin\left( kr- l\frac{pi}{2} \right)
+\end{equation}
+
+
+\begin{equation}
+\label{3.1.16} \beta l = l \frac{\pi}{2} - \delta_l
+\end{equation}
+
+
+Comparando con la solución de una partícula libre (\ref{3.1.15}) se tiene que $\beta$ debe satisfacer (\ref{3.1.16}), donde $\delta_l$ se le conoce como el desfasaje.
+
+\begin{equation}
+\label{3.1.17} \psi_{k,l,m}  \sim  \sin\left( kr- l\frac{pi}{2} + \delta_l \right) \frac{Y_l^0}{r}(\theta)
+\end{equation}
+
+
+$$  \sim \frac{ Y_l^0(\theta)}{2ir} \left[ e^{-ikr} e^{i(l\pi/2-\delta_l)} -e^{ikr} e^{-i(l\pi/2-\delta_l)} \right]  $$
+
+
+$$  \sim \frac{ Y_l^0(\theta)}{2ir} \left[ e^{-ikr} e^{il\pi/2} -e^{ikr} e^{i(2\delta_l-l\pi/2)} \right]  $$
+
+La funciones $\psi_{k,l,m}$ (\ref{3.1.17}) tiene un comportamiento asintótico que no presenta dependencia del número cuántico $m$. Se manipula esta expresión para luego poder reescribir la función de onda como una combinación lineal de ellas que permita relacionar el desfasaje con la amplitud de dispersión. 
+
+\begin{equation}
+\label{3.1.18} \braket{\vec{r}|\psi} = \psi(\vec{r}\;) = \sum_{l=0}^{\infty} i^l \sqrt{4\pi(2l+1)} \psi_{k,l,0}(\vec{r}\;)
+\end{equation}
+
+
+\begin{equation}
+\label{3.1.19}  \psi(\vec{r}\;) \sim \sum_{l=0}^{\infty} i^l \sqrt{4\pi(2l+1)} \; \frac{e^{-ikr} e^{il\pi/2} -e^{ikr} e^{i(2\delta_l-l\pi/2)} }{2kr i}  
+\end{equation}
+
+
+
+\begin{equation}
+\label{3.1.20}  e^{2i\delta_l} = 1 + 2i e^{i\delta_l}\sin \delta_l  
+\end{equation}
+
+
+
+\begin{equation}
+\label{3.1.21}   \psi(\vec{r}) \sim e^{ikr} + \frac{e^{ikr}}{r} f(\vec{k},\vec{k}')
+\end{equation}
+
+Manipulando la expresión para la función de onda $\psi(\vec{r})$ como se muestra en (\ref{3.1.18} - (\ref{3.1.20})) se llega a una expresión para el comportamiento asintótico de la forma (\ref{3.1.21}). Se identifica entonces de esta forma la amplitud de dispersión y su relación con el desfasaje $\delta_l$.
+
+\begin{equation}
+\label{3.1.22}  f(\vec{k},\vec{k}') = \frac{1}{k} \sum_{l=0}^{\infty} \sqrt{4 \pi(2l+1)} e^{i\delta_l} \sin \delta_l  Y_l^0(\theta)
+\end{equation}
+
+
+\begin{equation}
+\label{3.1.23}  \sigma_T = \frac{4\pi}{k^2} \sum_{l=0}^{\infty}  (2l+1)  \sin^2 \delta_l  
+\end{equation}
+
+
+La amplitud de dispersión y la sección eficaz diferencial estan dados por (\ref{3.1.22}) \& (\ref{3.1.23}) respectivamente.
+
+\begin{equation}
+\label{3.1.24} \psi_{l,k,m=0} \xrightarrow[\hspace{2cm}]{\rho \gg 1} \sum_{l=0}^{\infty} \frac{c_{k,l} }{\rho} \sin\left( \rho -\frac{l \pi}{2} + \delta_l \right) P_l (\theta)
+\end{equation}
+
+La función de onda $\psi_{k,l,m}$ con $m=0$ se comporta lejos del centro dispersor como se muestra en (\ref{3.1.24}).
+
+\begin{equation}
+\label{3.1.25} \textbf{Desfasajes funciona para: } E \ll |V|  
+\end{equation}
+
+
+Para que el método de desfasajes funcione la energía de la onda incidente debe ser mucho menor que la magnitud del potencial del centro dispersor (\ref{3.1.25}).
+
+
+
+
+\section{Ejemplos del Método de Desfasajes}
+
+\subsection{Esfera Dura}
+
+Este ejemplo considera un potencial de esfera dura que se define a continuación:
+
+\begin{align*}
+V(r) = 0 \qquad \text{para} r > a \\ \\
+V(r) = \infty \qquad \text{para} r < a 
+\end{align*}
+
+Para que sirva el método de desfasajes para este caso se debe tener que $ka \gg 1$.
+
+Para aproximación de Onda-S la ecuación radial efectiva es:
+
+\begin{equation*}
+\left[ \frac{d^2}{dr^2} + k^2 \right]u(r) = 0
+\end{equation*}
+
+De donde se obtiene la solución exacta:
+
+\begin{equation*}
+u(r) = C \; H(r-a)  \sin\left(k(r-a)\right)
+\end{equation*}
+
+El método de desfasajes indica que se debe comparar con el comportamiento asintótico cuando $r\rightarrow\infty$. 
+
+\begin{equation*}
+\lim\limits_{r\rightarrow\infty} u(r) \sim \sin \left(  kr-\frac{l\pi}{2} + \delta_l\right)
+\end{equation*} 
+
+Para Onda-S se tiene que $l=0$ de donde se obtiene el desfasaje $\delta_0 = -ka$. Con esto se puede calcular la amplitud de dispersión y con ella la sección diferencial eficaz y la sección eficaz total.
+\begin{equation*}
+f_l(\theta) = \frac{1}{k} e^{i\delta_0}\sin (\delta_0) \approx -ae^{-ika}
+\end{equation*}
+
+
+\begin{align*}
+\frac{d\sigma}{d\Omega}=|f_l(\theta)|^2 = a^2\\ \\
+\sigma_T =  4\pi a^2
+\end{align*}
+
+
+
+
+
+
+
+
+\subsection{Esfera de Dirac}
+
+Este potencial es un cascaron de grosor infinitesimal de potencial infinito, lo cual se describe como:
+
+\begin{equation*}
+V(r) = g\delta(r-a)
+\end{equation*}
+
+La ecuación radial para este potencial para Onda-S es:
+
+\begin{equation*}
+\left[\frac{d^2}{dr^2} - \frac{2mg}{\hbar^2}\delta(r-a) + k^2  \right]u(r)=0
+\end{equation*}
+
+
+Se recuerda que se debe cumplir que $u(0)=0$. las soluciones por fuera y adentro del cascaron están dadas por:
+
+\begin{align*}
+u(r) = \sin(kr)  \qquad r<a \\ \\
+u(r) = B\sin(kr+\delta_0) \qquad r<a
+\end{align*}
+
+Utilizando la continuidad de $\psi$ y la discontinuidad de su derivada se obtienen el siguiente par de ecuaciones.
+
+\begin{equation*}
+B \sin(ka+\delta_0) = \sin (ka)  \qquad \textbf{Continuidad de} \;\;\psi
+\end{equation*}
+
+
+\begin{equation*}
+kB \cos(ka+\delta_0) = k\cos (ka) + \frac{2\mu g}{\hbar^2} \sin (ka)  \qquad \textbf{Discontinuidad de}\; \;\frac{d\psi}{dr}
+\end{equation*}
+
+
+Dividiendo la condición de discontinuidad por la ecuación de continuidad se obtiene:
+
+
+\begin{equation*}
+ \cot(ka+\delta_0) = \cot (ka) + \frac{2\mu g}{k^2\hbar^2} 
+\end{equation*}
+
+Una identidad trigonométrica que sirve para simplificar la expresión anterior es:
+
+
+\begin{equation*}
+\cot (\alpha+\beta) = \frac{\cot\alpha \cot \beta-1}{\cot \alpha + \cot \beta}
+\end{equation*}
+
+De donde se obtiene el desfasaje dado por:
+
+
+\begin{equation*}
+\cot \delta_0 = - \cot (ka) - \frac{k^2 \hbar^2}{2\mu g} \csc^2(ka)
+\end{equation*}
+
+
+\subsection{Potencial Escalón (Heaviside)}
+
+El potencial escalón es uno que es constante hasta un radio $a$ y luego se apaga.
+
+\begin{equation*}
+V(r) = H(a-r)\; V_0
+\end{equation*}
+
+En donde $H(x)$ es la función de Heaviside. Para Onda-S se tiene las siguientes ecuaciones radiales:
+
+\begin{align*}
+\left[ \frac{d^2}{dr^2}  + \frac{2\mu}{\hbar^2} (E-V_0)\right]u(r) = 0 \\ \\
+\left[ \frac{d^2}{dr^2}  + \frac{2\mu}{\hbar^2} E\right]u(r) = 0
+\end{align*}
+
+Se definen $k_1$ y $k_2$ para aligerar las ecuaciones:
+
+\begin{equation*}
+k_1 \equiv \sqrt{\frac{2\mu(V_0-E)}{\hbar^2}}
+\end{equation*}
+\begin{equation*}
+k_2 \equiv \sqrt{\frac{2\mu E}{\hbar^2}}
+\end{equation*}
+
+Por lo que la solución exacta a la ecuación radial es:
+
+\begin{align*}
+u(r) = A \sinh (k_1 r) \qquad r<a \\ \\
+u(r) = B \sinh (k_2 r + \delta_0) \qquad r>a
+\end{align*}
+
+La continuidad de la función de onda y su derivada exigen lo siguiente:
+
+\begin{align*}
+\sinh (k_2 a + \delta_0) =  A \sinh (k_1 a) \qquad\textbf{Continuidad de} \;\;\psi\\ \\ 
+k_2\cosh (k_2 a + \delta_0) =  k_1A \cosh (k_1 a) \qquad \textbf{Continuidad de}\; \;\frac{d\psi}{dr}
+\end{align*}
+
+
+De donde se obtiene:
+
+\begin{equation*}
+\tanh (k_2 a + \delta_0) = \sqrt{\frac{E}{V_0-E}} \tanh(k_1a)
+\end{equation*}
+
+Mirando el caso $ka \ll 1$:
+
+\begin{equation*}
+\delta_0 \approx  \sqrt{\frac{E}{V_0-E}} \tanh(k_1a) - k_2a
+\end{equation*}
+
+
+
+\begin{equation*}
+\sigma_T = \frac{4\pi}{k_2^2}\sin^2\delta_0 \approx  \frac{4\pi}{k_2^2}\delta_0^2 \approx 4\pi a^2  \left[ 1 - \frac{\tan (k_2 a)}{k_1 a}\right]
+\end{equation*}
+
+
+
+Esto se puede comparar con el resultado que daría utilizando el método de Born para $ka\ll 1$:
+
+
+\begin{equation*}
+\chi_B(\Omega) = \frac{4\mu^2 V_0^2 a^6}{9 \hbar^4}\left[ 1 + \frac{2}{5} (ka)^2 \cos \theta\right]
+\end{equation*}
+
+\begin{equation*}
+\sigma_{Born} = \frac{16 \pi \mu^2 V_0^2 a^6}{9 \hbar^4} \left[ 1- \frac{2}{5}(ka)\right]^2
+\end{equation*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

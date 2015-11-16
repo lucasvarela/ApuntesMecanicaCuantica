@@ -1,0 +1,1411 @@
+\documentclass[oneside]{book}
+\usepackage{braket}
+\usepackage[latin1]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{mathrsfs}
+\usepackage{empheq}
+\usepackage{enumitem}
+\usepackage[pdftex]{color,graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+\usepackage{calligra}
+\usepackage{algpseudocode} 
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+\setlength{\oddsidemargin}{0cm}
+\setlength{\textwidth}{490pt}
+\setlength{\topmargin}{-40pt}
+\addtolength{\hoffset}{-0.3cm}
+\addtolength{\textheight}{4cm}
+\usepackage{amssymb}
+\usepackage{graphicx} % Required for the inclusion of images
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+\newcommand{\ho}{$\widehat{H}_0$}
+\newcommand{\psin}{$\ket{\psi_n}$}
+\usepackage{float}
+\newcommand{\phin}{$\ket{\phi_n}$}
+\newcommand{\En}{$\varepsilon_n$}
+
+\begin{document}
+	
+\begin{center}
+\textsc{\LARGE Mec\'anica Cu\'antica II }\\[0.5cm]
+\textsc{\LARGE Teor\'ia De Perturbaciones Independientes Del Tiempo}\\[0.1cm]
+\textsc{\LARGE Y M\'etodo Variacional}\\[0.5cm]
+\end{center}
+
+\begin{center}
+\begin{tabular}{l r}
+\large
+Notas de Clase del Profesor: Luis Quiroga Puello% Instructor/supervisor
+\normalsize
+\end{tabular}
+\end{center} %\\[0.5cm]
+
+
+\textbf{\large Estas son las notas de clase tomadas en el semestre 20151 en la clase Mec\'anica Cu\'antica II dictada por el profesor Luis Quiroga en La Universidad de los Andes. Estas notas son escritas por un alumno y pueden contener errores, uselas con precauci\'on.}\\
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale = 0.42]{zeemanenergia}
+	\end{figure}
+
+
+\textbf{Energías No Degeneradas:}\\
+
+\textbf{Orden cero $\lambda^0$:}
+
+\begin{equation*}
+\Delta E_{n,0}  = \varepsilon_n
+\end{equation*}
+
+\begin{equation*}
+\ket{\Delta \psi_{n,0}} = \ket{\phi_n}
+\end{equation*}
+
+
+
+\textbf{Primero Orden $\lambda^1$:}
+\begin{equation*}
+     \Delta E_{n,1}= \bra{\phi_n}\widehat{V}\ket{\phi_n}
+\end{equation*}
+
+
+\begin{equation*}
+\ket{\Delta \psi_{n,1}}  = \sum_{m \neq n}\sum_{i} \frac{\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}}{\varepsilon_n-\varepsilon_m }\ket{\phi_{m,i}}  
+\end{equation*}
+
+
+\textbf{Segundo Orden $\lambda^2$:}
+
+
+
+\begin{equation*}
+\Delta E_{n,2} =  \sum_{m \neq n}\sum_{i} \frac{|\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}|^2}{\varepsilon_n-\varepsilon_m }  
+\end{equation*}
+
+\begin{equation*}
+ \ket{\Delta \psi_{n,2}}= \sum_{m \neq n}\sum_{i}\sum_{q\neq n}\sum_{j} \frac{\braket{\phi_{m,i}|\widehat{V}|\phi_{q,j}}\braket{\phi_{q,j}|\widehat{V}|\phi_n}}{(\varepsilon_n -\varepsilon_m)(\varepsilon_n -\varepsilon_q)} \ket{\phi_{m,i}} - \sum_{m \neq n}\sum_{i}\frac{\braket{\phi_n|\widehat{V}|\phi_n}\braket{\phi_{m,i}|\widehat{V}|\phi_n}}{(\varepsilon_n -\varepsilon_m)^2}\ket{\phi_{m,i}}\\[0.5cm]
+\end{equation*}
+
+
+\textbf{Energías Degeneradas:}
+
+\[  \left( \begin{array}{ccc}
+ &  &  \\
+ & \widehat{V}_{g_n\times g_n}  &  \\
+ &  &  \end{array} \right)
+   \left( \begin{array}{ccc}
+    \\
+     \ket{\Delta \psi_{n,0}}   \\
+      \\
+    \end{array} \right) 
+      = \Delta E_{n,1}
+      \left( \begin{array}{ccc}
+        \\
+         \ket{\Delta \psi_{n,0}}   \\
+          \\
+        \end{array} \right) 
+           \]
+
+
+\tableofcontents
+\pagebreak
+
+\chapter{ Introducci\'on}
+
+
+Se estudiar\'a el m\'etodo de teor\'ia de perturbaciones independientes del tiempo. Los hamiltonianos que se estudian son de la forma (\ref{1}), donde $\widehat{V}$ es la perturbaci\'on. $\widehat{H}_0$ es un hamiltoniano que se conoce y contiene la mayor informaci\'on posible del sistema (que se puede resolver de forma exacta), con sus estados propios $\ket{\phi_n}$ y energ\'ias propias   $\varepsilon_n$ (como se muestra en la ecuaci\'on (\ref{2})).
+
+\begin{equation}
+\label{1} \widehat{H} = \widehat{H}_0 + \lambda \widehat{V}
+\end{equation}
+
+\begin{equation}
+\label{2} \widehat{H}_0  \ket{\phi_n} = \varepsilon_n \ket{\phi_n}
+\end{equation}
+
+
+Para que este m\'etodo sea efectivo la perturbaci\'on debe tener un efecto pequeño comparado con $\widehat{H}_0$, lo que se representar\'a como (\ref{3}).
+
+
+\begin{equation}
+\label{3}    |\widehat{V} |\ll |\widehat{H}_0 |
+\end{equation}
+
+La din\'amica del sistema es determinada por la ecuaci\'on de valores propios (Ecuaci\'on de Schrödinger independiente del tiempo) (\ref{4}).
+
+
+
+\begin{equation}
+\label{4}   \widehat{H} \ket{\psi} = E\ket{\psi}\\[0.5cm]
+\end{equation}
+
+
+\chapter{Energ\'ias Sin Degeneramiento}
+
+Generalmente  no se puede encontrar una soluci\'on anal\'itica a la ecuaci\'on  (\ref{4}). Por lo que se busca una soluci\'on aproximada en series de potencias. Para ello se expresa la energ\'ia $E_n$ y el estado \psin \ como series de potencias dadas por las ecuaciones (\ref{5}) y (\ref{6}).
+
+
+\begin{equation}
+\label{5}  E_n = \sum_{q=0}^{\infty} \lambda^q \Delta E_{n,q}
+\end{equation}
+
+
+
+\begin{equation}
+\label{6}  \ket{\psi_n} = \sum_{q=0}^{\infty} \lambda^q \ket{\Delta \psi_{n,q}}
+\end{equation}
+
+\textbf{\large NOTACI\'ON:}
+\begin{itemize}
+\item  $\Delta E_{n,q}$:  Correci\'on de la energ\'ia en\'esima al orden $q$.
+\item $\ket{\Delta \psi_{n,q}}$: Correci\'on del estado en\'esimo al orden $q$.\\
+\end{itemize}
+
+
+Las expresiones para la energ\'ia y estado en series de potencias se introducen en la ecuaci\'on de valores propios (\ref{4}):
+
+
+\begin{equation}
+\label{7}  ( \widehat{H}_0 +\lambda \widehat{V}) \sum_{q=0}^{\infty} \lambda^q \ket{\Delta \psi_{n,q}} = \left(  \sum_{q'=0}^{\infty} \lambda^{q'} \Delta E_{n,q'}  \right) \left(\sum_{q=0}^{\infty} \lambda^q \ket{\Delta \psi_{n,q}}\right)
+\end{equation}
+
+De esta ecuaci\'on se empiezan a mirar las ecuaciones que salen para distintos \'ordenes de $\lambda$.\\
+
+
+\textbf{Orden cero $\lambda^0$:}
+
+\begin{equation}
+\label{8}  \widehat{H}_0 \ket{\Delta \psi_{n,0}} = \Delta E_{n,0}  \ket{\Delta \psi_{n,0}}
+\end{equation}
+
+\textbf{Primer Orden $\lambda^1$:}
+
+\begin{equation}
+\label{9}  \left(\widehat{H}_0 -\Delta E_{n,0} \right)\ket{\Delta \psi_{n,1}} + \left(\widehat{V} -\Delta E_{n,1} \right)\ket{\Delta \psi_{n,0}} = 0
+\end{equation}
+
+\textbf{Segundo Orden $\lambda^2$:}
+
+\begin{equation}
+\label{10}  \left(\widehat{H}_0 -\Delta E_{n,0} \right)\ket{\Delta \psi_{n,2}} + \left(\widehat{V} -\Delta E_{n,1} \right)\ket{\Delta \psi_{n,1}} -\Delta E_{n,2} \ket{\Delta \psi_{n,0}}= 0 \\
+\end{equation}
+
+
+Ahora se hacen algunos convenios que har\'an m\'as f\'acil los c\'alculos posteriores.\\
+
+\textbf{Convenios:}
+
+\begin{itemize}
+\item $\braket{\psi(\lambda)|\psi(\lambda)}=1 \quad \forall \lambda$
+\item $\braket{\Delta \psi_0|\psi(\lambda)} \in \mathbb{R}$ 
+\end{itemize}
+
+\textbf{Consecuencias de los Convenios:}
+
+\begin{itemize}
+\item $\braket{\Delta\psi_{n,0}|\Delta\psi_{n,0}}=1 $
+\item $\braket{\Delta \psi_{n,0}|\Delta\psi_{n,1}} =0$ 
+\item $\braket{\Delta \psi_{n,0}|\Delta\psi_{n,2}} = \braket{\Delta \psi_{n,2}|\Delta\psi_{n,0}}= \frac{1}{2}\braket{\Delta \psi_{n,1}|\Delta\psi_{n,1}}$ 
+\end{itemize}
+
+
+Con estos convenios se obtienen los siguientes resultados para  los primeros \'ordernes:\\
+
+
+
+\section{Orden cero $\lambda^0$:}
+
+\begin{equation}
+\label{11}   \Delta E_{n,0}  = \varepsilon_n
+\end{equation}
+
+\begin{equation}
+\label{12}  \ket{\Delta \psi_{n,0}} = \ket{\phi_n}
+\end{equation}
+
+
+\section{Primer Orden $\lambda^1$:}
+
+Usando los resultados para orden cero:
+
+\begin{equation}
+\label{13}  \left(\widehat{H}_0 -\varepsilon_n \right)\ket{\Delta \psi_{n,1}} + \left(\widehat{V} -\Delta E_{n,1} \right)\ket{\phi_n} = 0
+\end{equation}
+
+Proyectando sobre $\bra{\phi_n}$ se obtiene:
+
+
+\begin{equation}
+\label{14}   \bra{\phi_n}\widehat{H}_0 -\varepsilon_n \ket{\Delta \psi_{n,1}} + \bra{\phi_n}\widehat{V} -\Delta E_{n,1} \ket{\phi_n} = 0
+\end{equation}
+
+\begin{equation}
+\label{15}    \bra{\phi_n}\widehat{V} -\Delta E_{n,1} \ket{\phi_n} = 0
+\end{equation}
+
+\begin{equation}
+\label{16}     \Delta E_{n,1}  = \bra{\phi_n}\widehat{V}\ket{\phi_n}
+\end{equation}
+
+Por lo que la energ\'ia a primer orden est\'a dada por la expresi\'on (\ref{17}).
+
+
+\begin{equation}
+\label{17}      E_n  = \varepsilon_n + \bra{\phi_n}\widehat{V}\ket{\phi_n} + O(\lambda^2)
+\end{equation}
+
+Para obtener las correciones del estado a primer orden se proyecta sobre  $\bra{\phi_{m,i}}$ con $m\neq n$. El \'indice "$i$" es usado por si la energ\'ia $E_m$ es degenerada.
+
+
+\begin{equation}
+\label{19}   \bra{\phi_m,i}\widehat{H}_0 -\varepsilon_n \ket{\Delta \psi_{n,1}} + \bra{\phi_{m,i}}\widehat{V} -\Delta E_{n,1} \ket{\phi_n} = 0
+\end{equation}
+
+
+\begin{equation}
+\label{20}   (\varepsilon_m-\varepsilon_n )\braket{\phi_{m,i}| \Delta \psi_{n,1} }  + \bra{\phi_{m,i}}\widehat{V} \ket{\phi_n} = 0
+\end{equation}
+
+
+\begin{equation}
+\label{21}   \braket{\phi_m,i| \Delta \psi_{n,1} }    = \frac{\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}}{\varepsilon_n-\varepsilon_m }
+\end{equation}
+
+De esta \'ultima expresi\'on se obtiene la correcci\'on a primer orden dada por (\ref{22}) y el estado a primer orden por  (\ref{23}) .
+
+
+\begin{equation}
+\label{22}   \ket{\Delta \psi_{n,1}}    = \sum_{m \neq n}\sum_{i} \frac{\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}}{\varepsilon_n-\varepsilon_m } \ket{\phi_{m,i}}
+\end{equation}
+
+
+
+\begin{equation}
+\label{23}   \ket{\psi_{n,1}}    = \ket{\phi_n} + \sum_{m \neq n}\sum_{i} \frac{\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}}{\varepsilon_n-\varepsilon_m }\ket{\phi_{m,i}}  +O(\lambda^2)
+\end{equation}
+
+
+\section{Segundo Orden $\lambda^2$:}
+
+
+Recordar que para $\lambda^2$ se tiene la expresi\'on (\ref{24}). 
+
+\begin{equation}
+\label{24}  \left(\widehat{H}_0 -\varepsilon_n \right)\ket{\Delta \psi_{n,2}} + \left(\widehat{V} -\Delta E_{n,1} \right)\ket{\Delta \psi_{n,1}} -\Delta E_{n,2} \ket{\Delta \phi_{n}}= 0 
+\end{equation}
+
+Proyectando sobre $\bra{\phi_n}$:
+
+\begin{equation}
+\label{25} \bra{\phi_n} \widehat{H}_0 -\varepsilon_n \ket{\Delta \psi_{n,2}} + \bra{\phi_n}\widehat{V} -\Delta E_{n,1}\ket{\Delta \psi_{n,1}} -\Delta E_{n,2} \braket{\phi_{n}|\phi_{n}}= 0 
+\end{equation}
+
+
+\begin{equation}
+\label{26} \Delta E_{n,2} =  \bra{\phi_n}\widehat{V} -\Delta E_{n,1}\ket{\Delta \psi_{n,1}}
+\end{equation}
+
+
+Utilizando la expresi\'on para $\ket{\Delta \psi_{n,1}} $ se puede ver que $\braket{\phi_n|\Delta \psi_{n,1}}=0 $, como se muestra en (\ref{27}).
+
+
+\begin{equation}
+\label{27}\Delta E_{n,1} \braket{\phi_n|\Delta \psi_{n,1}}=  \sum_{m \neq n}\sum_{i} \frac{\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}}{\varepsilon_n-\varepsilon_m }  \braket{\phi_n|\phi_{m,i}} = 0
+\end{equation}
+
+Por esto la expresi\'on para la correcci\'on a segundo orden toma la forma (\ref{28}):
+
+\begin{equation}
+\label{28} \Delta E_{n,2} =  \bra{\phi_n}\widehat{V} \ket{\Delta \psi_{n,1}}
+\end{equation}
+
+
+\begin{equation}
+\label{29} \Delta E_{n,2} =  \sum_{m \neq n}\sum_{i} \frac{\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}}{\varepsilon_n-\varepsilon_m }  \braket{\phi_n|\widehat{V} |\phi_{m,i}}
+\end{equation}
+
+
+\begin{equation}
+\label{30} \Delta E_{n,2} =  \sum_{m \neq n}\sum_{i} \frac{|\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}|^2}{\varepsilon_n-\varepsilon_m }  
+\end{equation}
+
+
+
+\begin{equation}
+\label{31} \Delta E_{n} =  \varepsilon_n + \bra{\phi_n}\widehat{V}\ket{\phi_n} +  \sum_{m \neq n}\sum_{i} \frac{|\bra{\phi_{m,i}}\widehat{V} \ket{\phi_n}|^2}{\varepsilon_n-\varepsilon_m }  + O(\lambda^3)
+\end{equation}
+
+
+
+La expresi\'on para la correci\'on de segundo orden del estado es dada por la ecuaci\'on (\ref{32})
+
+
+\begin{equation}
+\label{32} \ket{\Delta \psi_{n,2}}= \sum_{m \neq n}\sum_{i}\sum_{q\neq n}\sum_{j} \frac{\braket{\phi_{m,i}|\widehat{V}|\phi_{q,j}}\braket{\phi_{q,j}|\widehat{V}|\phi_n}}{(\varepsilon_n -\varepsilon_m)(\varepsilon_n -\varepsilon_q)} \ket{\phi_{m,i}} - \sum_{m \neq n}\sum_{i}\frac{\braket{\phi_n|\widehat{V}|\phi_n}\braket{\phi_{m,i}|\widehat{V}|\phi_n}}{(\varepsilon_n -\varepsilon_m)^2}\ket{\phi_{m,i}}\\[0.5cm]
+\end{equation}
+
+
+
+\chapter{Energ\'ias Degeneradas}
+
+La energ\'ia a la que se le busca correciones ahora es degenerada. Por lo que se tiene algo del estilo (\ref{33}). Se observa que el \'indice "$i$" corre desde 1 hasta el degeneramiento $g_n$, es decir $i = 1,\dots,g_n$.
+
+
+\begin{equation}
+\label{33}  \widehat{H}_0 \ket{\phi_{n,i}}= \varepsilon_n \ket{\phi_{n,i}}
+\end{equation}
+
+Para el caso degenerado solo se mirar\'an las correciones a primer orden de la energ\'ia y a orden cero de los estados. Retomando la expresi\'on (\ref{9}) pero ahora considerando que el estado es degenerado se procede a proyectar sobre $\bra{\phi_{n,j}}$ :
+
+\begin{equation}
+\label{34}  \left(\widehat{H}_0 -\varepsilon_n \right)\ket{\Delta \psi_{n,1}} + \left(\widehat{V} -\Delta E_{n,1} \right)\ket{\Delta \psi_{n,0}} = 0
+\end{equation}
+
+\begin{equation}
+\label{35}  \bra{\phi_{n,j}}\widehat{H}_0 -\varepsilon_n \ket{\Delta \psi_{n,1}} +\bra{\phi_{n,j}} \widehat{V} -\Delta E_{n,1} \ket{\Delta \psi_{n,0}} = 0
+\end{equation}
+
+
+
+\begin{equation}
+\label{36}\bra{\phi_{n,j}} \widehat{V} -\Delta E_{n,1} \ket{\Delta \psi_{n,0}} = 0
+\end{equation}
+
+
+\begin{equation}
+\label{37}\bra{\phi_{n,j}} \widehat{V}\ket{\Delta \psi_{n,0}}  = \bra{\phi_{n,j}}\Delta E_{n,1} \ket{\Delta \psi_{n,0}}
+\end{equation}
+
+Introduciendo la relaci\'on de completes (\ref{38}) en (\ref{37}):
+
+\begin{equation}
+\label{38} \widehat{1} = \sum_{i=1}^{g_n} \ket{\phi_{n,i}} \bra{\phi_{n,i}}
+\end{equation}
+
+\begin{equation}
+\label{39}  \sum_{i=1}^{g_n}    \bra{\phi_{n,j}} \widehat{V}\ket{\phi_{n,i}} \braket{\phi_{n,i}|\Delta \psi_{n,0}}    = \Delta E_{n,1}\braket{\phi_{n,j}|\Delta \psi_{n,0}}
+\end{equation}
+
+
+La ecuaci\'on (\ref{39}) brinda un procedimiento para encontrar las correciones de energ\'ia a primer orden y las correcciones a orden cero de los estados. Esta ecuaci\'on se puede ver en representaci\'on matricial de la siguiente forma:\\
+
+
+\[  \left( \begin{array}{ccc}
+ &  &  \\
+ & \widehat{V}_{g_n\times g_n}  &  \\
+ &  &  \end{array} \right)
+   \left( \begin{array}{ccc}
+    \\
+     \ket{\Delta \psi_{n,0}}   \\
+      \\
+    \end{array} \right) 
+      = \Delta E_{n,1}
+      \left( \begin{array}{ccc}
+        \\
+         \ket{\Delta \psi_{n,0}}   \\
+          \\
+        \end{array} \right) 
+           \]
+
+
+
+\textbf{Algoritmo Para Hallar $\Delta E_{n,1}$ y $\ket{\Delta \psi_{n,0}}$ }
+
+\begin{itemize}
+\item Identificar el grado de degeneramiento de la energ\'ia a la cual se le quiere hallar las correciones y sus estados propios. Es decir, encuentre $g_n$ y $\ket{\phi_{n,i}}$. \textbf{Nota:} se supone que estos se conocen, ya que estos son los estados propios de \ho.
+\item Calcule los coeficientes $  \bra{\phi_{n,j}} \widehat{V}\ket{\phi_{n,i}}$ y con ellos arme la representaci\'on  matricial del operador $\widehat{V}$ en el subespacio formado por lo estados propios degenerados. Esta debe ser una matriz $g_n \times g_n$. 
+\item Se encuentran los valores y vectores propios de la matriz $\widehat{V}$. Los valores propios son las correciones a primer orden de la energ\'ia y los vectores propios (normalizados) son las correcciones a orden cero de los estados.
+\item \textbf{Si la matriz es nula no hay correciones a estos \'ordenes.}\\[0.5cm]
+\end{itemize}
+
+
+\chapter{M\'etodo Variacional}
+
+\textbf{" \textsl{Un m\'etodo que requiere feeling} "}\\
+
+Antes de explorar este m\'etodo, es necesario probar el teorema en el que se basa.\\
+
+
+\textbf{Teorema:} Para todo $\ket{\psi}$, un estado normalizado del espacio de Hilbert de $\widehat{H}$, se cumple la desigualdad (\ref{40})
+
+\begin{equation}
+\label{40}  \braket{\psi|\widehat{H}|\psi} \geq E_0
+\end{equation}
+
+\textbf{Prueba:} Se toma la base ortonormal de vectores propios de $\widehat{H}$, $\{ \ket{\phi_n}\}$. Entonces cualquier estado se puede descomponer de la forma (\ref{41}).
+
+
+\begin{equation}
+\label{41}  \ket{\psi} = \sum_{n} c_n \ket{\phi_n}
+\end{equation}
+
+\begin{equation}
+\label{42}  \braket{\psi|\widehat{H}|\psi} = \sum_{n}\sum_{m}c_n c_m^* \braket{\phi_m|\widehat{H}|\phi_n}
+\end{equation}
+
+\begin{equation}
+\label{43}  \sum_{n}\sum_{m}c_n c_m^* \braket{\phi_m|\widehat{H}|\phi_n} = \sum_{n} |c_n|^2 E_n
+\end{equation}
+
+
+Por definici\'on se tiene que $E_0 \leq E_n$ por lo que:
+
+
+\begin{equation}
+\label{44}   \sum_{n} |c_n|^2 E_n \;\geq \;\sum_{n} |c_n|^2 E_0 \;\geq\; E_0
+\end{equation}
+
+En este teorema se encuentra la esencia del m\'etodo variacional, ya que sin importar qu\'e estado se escoja siempre se obtendr\'a uno que da un valor esperado de la energ\'ia mayor o igual a la energ\'ia m\'inima. Por lo tanto se puede ver que si se escoge un estado y luego se escoge otro que da una energ\'ia menor, se est\'a m\'as cerca al estado fundamental.\\
+
+\section{M\'etodo de Familias de Estados o Funciones de Onda:}
+
+\begin{itemize}
+\item $ \ket{\psi(\alpha)}$: Se escoge una familia de estados o funciones de onda que dependan de uno o varios par\'ametros ($\alpha$).
+\item $ \braket{\widehat{H}}(\alpha)=\braket{\psi(\alpha)|\widehat{H}|\psi(\alpha)}\;$: Se calcula el valor esperado de la energ\'ia en el estado escogido.
+\item $\frac{\partial\braket{\widehat{H}} }{\partial \alpha} (\alpha_0) = 0  \;$: Se encuentra el par\'ametro $\alpha_0$ que minimiza el valor esperado.
+\item $ \ket{\psi(\alpha_0)} \longrightarrow E(\alpha_0) \geq E_0$ \ : Se obtiene la soluci\'on aproximada, la funci\'on minimizadora de la familia de funciones.\\[0.5cm]
+\end{itemize}
+
+
+\section{M\'etodo del Subespacio Variacional:}
+
+Esta otra forma de m\'etodo variacional consiste en restringir el problema a un subespacio del espacio de Hilbert del hamiltoniano completo. Es decir, escoger un $\mathcal{H}_{var} \subset \mathcal{H}$. Se resuelve el problema de valores propios pero ahora en un espacio menor que simplifica el procedimiento.\\
+
+
+
+\textbf{Teorema de RITZ:} Si se quiere extender el m\'etodo variacional para cualquier estado existe el teorema de Ritz.\\
+
+
+
+
+
+\chapter{Ejemplos del M\'etodo Variacional}
+
+Primero se darán tres ejemplos del método de familias de funciones. Luego se aplicara el método del subespacio variacional al tratamiento del ion molecular $H_2^+$.  \\
+
+
+\section{Oscilador Arm\'onico 1D con Familias Gaussianas:}
+
+
+El hamiltoniano para el oscilador arm\'onico cu\'antico est\'a dado por (\ref{45})
+
+
+\begin{equation}
+\label{45}  \widehat{H} = \frac{\widehat{P}^2}{2m} + \frac{1}{2}m \omega^2 \widehat{X}^2
+\end{equation}
+
+Se utiliza una familia de funciones de ensayo gaussianas (\ref{46}).
+
+
+\begin{equation}
+\label{46}  \psi(x,\alpha) = e^{-\alpha x^2} \qquad \alpha>0
+\end{equation}
+
+
+El valor esperado de la energ\'ia es:
+
+
+\begin{equation}
+\label{47}  \braket{\widehat{H}}(\alpha)= \int_{\mathbb{R}}\psi^*(x,\alpha)\; \widehat{H} \; \psi(x,\alpha) = \frac{\hbar^2 \alpha}{2m} + \frac{m \omega^2}{8\alpha}
+\end{equation}
+
+El par\'ametro \'optimo tras minimizar la expresi\'on (\ref{47}) es (\ref{48}) y la energ\'ia correspondiente para la funci\'on minimizada es (\ref{49}).
+
+\begin{equation}
+\label{48} \alpha_0 = \frac{m\omega}{2\hbar}
+\end{equation}
+
+\begin{equation}
+\label{49} \braket{\widehat{H}}(\alpha_0) = \frac{\hbar\omega}{2} = E_0\\
+\end{equation}
+
+Para este caso la familia de funciones escogidas dio la energ\'ia m\'inima. En este caso se conoce la soluci\'on exacta. Esto solo se hace como ejercicio ilustrativo).\\[0.1cm]
+
+
+\section{Oscilador Arm\'onico 1D con Familias Lorenzianas:}
+
+Ahora se toma la familia de funciones lorenzianas normalizadas (\ref{50}):
+
+\begin{equation}
+\label{50} \psi(x,\alpha) = \frac{\pi}{2 \alpha^{\frac{3}{2}}} \frac{1}{x^2 + \alpha^2}
+\end{equation}
+
+
+\begin{equation}
+\label{51} \braket{\widehat{H}}(\alpha) = \frac{\hbar^2}{4m \alpha} + \frac{1}{2} m\omega^2 \alpha
+\end{equation}
+
+\begin{equation}
+\label{52} \alpha_0 =  \frac{1}{\sqrt{2}} \frac{\hbar}{m\omega}
+\end{equation}
+
+\begin{equation}
+\label{53} \braket{\widehat{H}}(\alpha_0) = \frac{\hbar\omega}{\sqrt{2}} 
+\end{equation}
+
+
+Se observa comparando con el valor de $E_0$ que el error que se obtiene con esta funci\'on es aproximadamente del $20 \% $.\\[0.1cm]
+
+
+\section{Átomo de Hidrogeno}
+
+Se define las siguientes cantidades:
+
+
+\begin{equation}
+\label{54} a_0 = \frac{\hbar^2}{m^* e^2} \longrightarrow \text{Longitud}
+\end{equation}
+
+
+\begin{equation}
+\label{55} E_H = \frac{m^* e^4}{\hbar^2}  \longrightarrow \text{Energía de Hartree} 
+\end{equation}
+
+La familia de funciones es de la siguiente forma:
+
+
+\begin{equation}
+\label{56}\psi(\vec{r},\alpha) = R(r,\alpha) Y_l^m(\theta,\phi) 
+\end{equation}
+
+
+\begin{equation}
+\label{57} \braket{\widehat{H}}(\alpha) =  \frac{\int_{\mathbb{R^+}} dr\; r^2 e^{-\alpha r^2}\left[     \frac{-1}{2r}\frac{d^2}{dr^2} (r\;) + \frac{l(l+1)}{2r^2}  - \frac{1}{r}    \right]e^{-\alpha r^2} }{\int_{\mathbb{R^+}} dr\; r^2 e^{-2\alpha r^2} }
+\end{equation}
+
+\begin{equation}
+\label{58} = \left[  \frac{3}{2}  + 2l(l+1)\right]\alpha - 2\sqrt{\frac{2\alpha}{\pi}} 
+\end{equation}
+
+
+\begin{equation}
+\label{59} \alpha_0 = \frac{8}{\pi \left[ 3 + 4l(l+1)\right] }
+\end{equation}
+
+
+\begin{equation}
+\label{60}   \braket{\widehat{H}}(\alpha_0) = \frac{-4}{\pi \left[ 3 + 4l(l+1)\right] }  =   \frac{-4}{\pi \left[ 3 + 4n(n-1)\right] }\\ 
+\end{equation}
+
+
+Este resultado se puede comparar con el resultado exacto de la energía (\ref{60}):
+
+\begin{equation}
+\label{61}  E_n = -\frac{E_H}{2\hbar^2}\\[0.5cm]
+\end{equation}
+
+
+\section{Ión Molecular: $H_2^+$}
+
+
+La molécula que se tratara consiste en dos núcleos separados a una distancia $R$, y una electrón compartido. El modelo que se usara la aproximación Born-Oppenheimer. Dicha aproximación se basa en notar que debido a que la masa del núcleo es mucho mayor a la del electrón, el potencial del núcleo también sera mucho mayor que el de electrón (\ref{62}). Además se tratara los núcleos como estáticos, por lo que $R$ sera un parámetro y no un operador. Para simplificar la notación se usaran unidades de energía $E_H$(\ref{63}). Se define $E_I$ como la energía de ionización del átomo de hidrógeno.
+
+
+\begin{equation}
+\label{62} m_e \ll M_{\text{núcleo}} \longrightarrow V_e \ll V_{\text{núcleo}}
+\end{equation}
+
+
+\begin{equation}
+\label{63}E_H = 2 E_{\text{I}} = \frac{e^2}{a_0}
+\end{equation}
+
+\textbf{Suposiciones del Modelo:}
+
+\begin{itemize}
+\item $V_e \ll V_{\text{núcleo}}$ : El potencial del núcleo domina sobre el del electrón.
+\item $ R \neq \widehat{R}$ : La distancia entre núcleos $R$ NO es un operador, es un parámetro.
+\end{itemize}
+
+El hamiltoniano para este sistema es dado por (\ref{64}), donde $r_1$ y $r_2$ son las distancias de cada núcleo al electrón.
+
+
+
+\begin{equation}
+\label{64}\widehat{H} = \frac{1}{2m_e} \underset{\rightarrow}{\widehat{P_e}^2}  - \frac{e^2}{r_1}   - \frac{e^2}{r_2}  + \frac{e^2}{R}
+\end{equation}
+
+
+Para este problema es conveniente utilizar coordenadas elípticas definidas como se muestra a continuación:
+
+
+ 
+ \begin{equation}
+ \label{65}  \mu = \frac{\rho_1 + \rho_2}{2} \quad  \longrightarrow  \quad   1 \leq \mu \leq \infty
+ \end{equation}
+
+
+
+ \begin{equation}
+ \label{66}   \nu = \frac{\rho_1 - \rho_2}{2}  \quad  \longrightarrow   \quad   -1\leq \nu \leq 1
+ \end{equation}
+ 
+ 
+  \begin{equation}
+  \label{67}  \phi = \phi \quad   \;\longrightarrow  \quad   0 \leq\phi  \leq 2\pi
+  \end{equation}
+  
+
+  \begin{equation}
+  \label{68}  d\vec{r} = \frac{R^3}{8} (\mu^2 - \nu^2)d\mu\; d\nu \;d\phi
+  \end{equation}
+
+Donde se introdujeron las siguientes variables adimensionales:
+
+
+\begin{equation}
+  \label{69} \rho_i = \frac{r_i}{a_0}    \qquad i=1,2
+  \end{equation}
+
+
+\begin{equation}
+  \label{70} \rho = \frac{R}{a_0}    
+  \end{equation}
+
+El metodo que se va a utilizar se conoce como "Linear combination of atomic orbital" o por sus iniciales \textbf{LCAO}. Este consiste en tomar bases ortonormales que corresponden a los estados propios del electrón ligado a un solo núcleo. Una forma de visualizar esto es dada por las imagenes (\ref{fig1}) \& (\ref{fig2}). \\
+
+
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale = 0.42]{lcaoderecha}
+	\caption{Eletr\'on ligado solo al núcleo derecho}
+	\label{fig1}
+	\end{figure}
+
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale = 0.42]{lcaoizquierda}
+	\caption{Eletr\'on ligado solo al núcleo izquierdo}
+	\label{fig2}
+	\end{figure}
+
+
+Las funciones de onda asociadas a estos estados están dadas por (\ref{71}). El ket que describe este estado es (\ref{72})
+
+\begin{equation}
+  \label{71} \phi_i = \frac{e^{-\rho_i}}{\sqrt{\pi a_0^3}}    \qquad i=1,2
+  \end{equation}
+
+
+\begin{equation}
+  \label{72} \ket{\psi} = c_1 \ket{\phi_1} +  c_2 \ket{\phi_2}
+  \end{equation}
+
+Ahora partiendo de la ecuaci\'on de valores propios (\ref{73}) y luego proyectando sobre $\bra{\phi_i}$:
+
+\begin{equation}
+  \label{73} \widehat{H}\ket{\psi} = E\ket{\psi}
+  \end{equation}
+  
+  
+  \begin{equation}
+    \label{74} \braket{\phi_i|\widehat{H}|\psi}= E \braket{\phi_i|\psi}
+    \end{equation}
+
+
+  \begin{equation}
+    \label{75} \sum_{j=1}^{2}c_j \braket{\phi_i|\widehat{H}|\phi_j}= E \sum_{j=1}^{2}c_j \braket{\phi_i|\phi_j}
+    \end{equation}
+
+Se define las siguientes cantidades:
+
+  \begin{equation}
+    \label{76}  H_{ij}=\braket{\phi_i|\widehat{H}|\phi_j} \quad \longrightarrow \quad \text{Hopping}
+    \end{equation}
+
+  \begin{equation}
+    \label{77}  S_{ij}= \braket{\phi_i|\phi_j} \quad \longrightarrow \quad \text{Overlaps}
+    \end{equation}
+
+De la ecuación (\ref{75}) se extrae el siguiente sistema de ecuaciones lineales:
+
+
+
+\begin{equation}
+    \label{78} (H_{11} -E\;S_{11}  )\;c_1 + (H_{12} -E\;S_{12}  )\;c_2= 0
+    \end{equation}
+
+
+\begin{equation}
+    \label{79} (H_{21} -E\;S_{21}  )\;c_1 + (H_{22} -E\;S_{22}  )\;c_2= 0
+    \end{equation}
+
+
+Se observa que $S_{22}   = S_{11} =1$. Además $S_{12} = S_{21} = S $. Se procede a calcular el valor de $S$:
+
+      
+      \begin{equation}
+          \label{80} S = \int_{\mathbb{R}^3} d\vec{r} \; \phi_1(\vec{r}) \phi_2(\vec{r})  = \frac{1}{\pi a_0^3} \int_{1}^{\infty}d\mu\int_{-1}^{1} d\nu\int_{0}^{2\pi}d\phi \; \frac{\rho^3 a_0^3}{8} (\mu^2 - \nu^2) e^{-\mu \rho}
+          \end{equation}
+
+
+      \begin{equation}
+          \label{81} = \frac{\rho ^3}{2} \int_{1}^{\infty} d\mu \left(\mu^2 -\frac{1}{3}\right) e^{\mu\rho} = \left(1+\rho +\frac{\rho^3}{3}\right)e^{-\rho}
+          \end{equation}
+
+
+
+Ahora falta calcular los elementos de Hopping. Para ello se observa que por simetría se tiene $H_{11} = H_{22}$ y $H_{12}=H_{21}$. Entonces para $H_{11} $ \ se tiene:
+
+
+\begin{equation}
+\label{82} H_{11} =\braket{\phi_1| \left( \frac{1}{2m_e} \underset{\rightarrow}{\widehat{P_e}^2}  - \frac{e^2}{r_1}   - \frac{e^2}{r_2}  + \frac{e^2}{R}\right)|\phi_1} = -E_I + \frac{e^2}{R} - C
+          \end{equation}
+
+Donde $C $ es:
+
+
+\begin{equation}
+\label{83}C =\braket{\phi_1|\frac{e^2}{r_2}  |\phi_1} = \int_{\mathbb{R}^3} d\vec{r} \;\frac{e^2}{r_2}  |\phi_1(\vec{r}) |^2 = \frac{1}{\pi a_0^3}\frac{\rho^3 a_0^3}{8} \int_{1}^{\infty}d\mu\int_{-1}^{1} d\nu\int_{0}^{2\pi}d\phi \; \frac{2e^2}{a_0 \rho(\mu-\nu)} (\mu^2 - \nu^2) e^{-(\mu+\nu) \rho} 
+          \end{equation}
+
+
+\begin{equation}
+\label{84}= E_I \rho^2 \int_{1}^{\infty}d\mu\int_{-1}^{1} d\nu (\mu+\nu) e^{-(\mu+\nu) \rho} = \frac{2 E_I}{\rho} \left(1- (1+\rho)e^{-2\rho}\right)
+          \end{equation}
+
+Se procede a calcular $H_{1,2}$:
+
+
+\begin{equation}
+\label{85} H_{12} =\braket{\phi_1| \left( \frac{1}{2m_e} \underset{\rightarrow}{\widehat{P_e}^2}  - \frac{e^2}{r_1}   - \frac{e^2}{r_2}  + \frac{e^2}{R}\right)|\phi_2} = -E_I\; S + \frac{e^2}{R}\; S - A
+          \end{equation}
+
+Donde $A$ se conoce como la integral de resonancia:
+
+
+\begin{equation}
+\label{86}A =\braket{\phi_1|\frac{e^2}{r_1}  |\phi_2} = \int_{\mathbb{R}^3} d\vec{r} \;\phi_1(\vec{r})\frac{e^2}{r_1}  \phi_2(\vec{r}) = 2E_I\; (1+\rho) e^{-\rho}
+          \end{equation}
+          
+Ahora que se tienen todas la expresiones se procede a extraer una solución del sistema lineal de ecuaciones. Como es un sistema homogéneo es necesario forzar que el determinante sea nulo para obtener soluciones no triviales. El determinante que hay que calcular es el siguiente:         
+
+
+\[  \left| \begin{array}{ccc}
+ H_{11}-E & H_{12}-E\;S   \\
+ H_{12}-E\;S&  H_{11}-E 
+ \end{array} \right|
+           =0\]
+           
+Introduciendo $\epsilon$, un una variable adimensional de energía y los parámetros adimensionales $\alpha$ y $\gamma$ se obtienen dos soluciones:
+
+
+\begin{equation}
+\label{87} \epsilon = \frac{E}{E_I}  
+\end{equation}
+\begin{equation}
+\label{88}  \alpha = \frac{A}{E_I} 
+\end{equation}
+\begin{equation}
+\label{89}  \gamma = \frac{C}{E_I} 
+\end{equation}
+
+\begin{equation}
+\label{90} \epsilon_+ = -1 \frac{2}{\rho} + \frac{\alpha-\gamma}{1-S}  \quad \longrightarrow \quad \text{Anti-bonding state}  
+\end{equation}
+
+
+\begin{equation}
+\label{91} \epsilon_- = -1 \frac{2}{\rho} - \frac{\alpha+\gamma}{1+S}  \quad \longrightarrow \quad \text{Bonding state}  
+\end{equation}
+
+
+\begin{equation}
+\label{92} \ket{\psi_+} = \frac{1}{\sqrt{2(1-S)}} \left[\; \ket{\phi_1} -\ket{\phi_2}\;  \right]   \quad \longrightarrow \quad \text{Anti-bonding state}  
+\end{equation}
+
+
+
+\begin{equation}
+\label{93} \ket{\psi_-} = \frac{1}{\sqrt{2(1+S)}} \left[\; \ket{\phi_1} +\ket{\phi_2}\;  \right]   \quad \longrightarrow \quad \text{Bonding state}  
+\end{equation}
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale = 0.42]{bonding}
+	\caption{Función de onda para el estado "Binding"}
+	\label{fig1}
+	\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale = 0.42]{antibonding}
+	\caption{Función de onda para el estado "Antibinding"}
+	\label{fig1}
+	\end{figure}
+
+
+
+\chapter{Ejemplos de Teoría de Perturbaciones Independientes del Tiempo}
+
+
+\section{Estructura Fina del Átomo de Hidrógeno}
+
+
+Para explicar teóricamente la estructura fina del átomo de hidrógeno es necesario incluir efectos relativistas al sistema. Para este caso no es necesario recurrir a la ecuación de Dirac, solo con incluir algunos términos relativistas al hamiltoniano y usando teoría de perturbaciones de la mecánica cuántica ordinaria, se reproducen los resultados experimentales a nivel de estructura fina del hidrógeno. 
+
+Se comienza por comparar las energías típicas del átomo de hidrógeno con la energía relativista de un electrón en reposo:
+
+
+\begin{equation}
+\label{94} \sqrt{\frac{e^2/a_0}{m_e c^2}}= \frac{e^2}{\hbar c} \equiv \alpha \simeq \frac{1}{137}  
+\end{equation}
+
+
+El hamiltoniano para $v/c \ll 1$ es:
+
+
+\begin{equation}
+\label{95} \widehat{H}\cong  m_e c^2 + \frac{1}{2m_e} \underset{\rightarrow}{\widehat{P}^2} + \widehat{V}(\vec{r}) - \frac{1}{8m_e^3 c^2} \underset{\rightarrow}{\widehat{P}^4} + \frac{1}{2m_e^2 c^2 }\frac{1}{r} \frac{dV}{dr} \left[ \underset{\rightarrow}{\widehat{L}} \cdot  \underset{\rightarrow}{\widehat{S}}  \right] + \frac{\hbar^2}{8 m_e^2 c^2} \nabla^2 V + \dots
+\end{equation}
+
+
+
+\begin{equation}
+\label{96} \widehat{H}_{mv}  \equiv   \frac{1}{8m_e^3 c^2} \underset{\rightarrow}{\widehat{P}^4}
+\end{equation}
+
+
+\begin{equation}
+\label{97} \widehat{H}_{SO}  \equiv   \frac{1}{2m_e^2 c^2 }\frac{1}{r} \frac{dV}{dr} \left[ \underset{\rightarrow}{\widehat{L}} \cdot  \underset{\rightarrow}{\widehat{S}}  \right]
+\end{equation}
+
+
+\begin{equation}
+\label{98} \widehat{H}_{D}  \equiv   \frac{\hbar^2}{8 m_e^2 c^2} \nabla^2 V
+\end{equation}
+
+
+Para saber como atacar el problema se estiman los ordenes de magnitud de cada término:
+
+
+
+\begin{equation}
+\label{99} \frac{|\widehat{H}_{mv}|}{|\widehat{H}_{0}|} \simeq \frac{P^4/(8m_e^3c^2)}{P^2/2m_e} = \frac{1}{4}\left(\frac{v}{c}\right)^2 \simeq \alpha^2 
+\end{equation}
+
+Por lo que si $|\widehat{H}_{0}| \simeq 10\;eV \longrightarrow |\widehat{H}_{mv}| \simeq 10^{-3}\;eV$.
+
+
+\begin{equation}
+\label{100} \frac{|\widehat{H}_{SO}|}{|\widehat{H}_{0}|} \simeq \frac{e^2\hbar^2/(m_e^2c^2 r^3)}{e^2/r} = \frac{\hbar^2}{m_e^2c^2 r^2} \simeq \alpha^2 
+\end{equation}
+
+
+\begin{equation}
+\label{101} \frac{|\widehat{H}_{D}|}{|\widehat{H}_{0}|} \simeq \frac{\pi e^2\hbar^2|\psi(0)|^2}{2m_e^2c^2} = \frac{m_ec^2\alpha^4}{m_e^2\alpha^2} \simeq \alpha^2 
+\end{equation}
+
+Donde se utilizó en la última ecuación $|\psi(0)|^2\sim 1/a_0^3$. Se observa entonces que estos tres hamiltonianos tienen una orden de magnitud similar y mucho menor al del hamiltoniano principal \ho. Conociendo esto tiene sentido aplicar teoría de perturbaciones. Se mirara los efectos sobre el nivel de energía $n=2$, ya que el estado fundamental no es tan interesante. Para $n=1$ solo hay un corrimiento del nivel de energía mientras que para el primer estado excitado se rompe el degeneramiento.\\
+
+
+
+ 
+ 
+\textbf{Perturbaciones al primer estado excitado del átomo de hidrógeno a nivel de estructura fina:}\\
+
+El espacio subespacio degenerado es de dimensión 8. Se denotara como $\widehat{H_f}$ a la matriz del subespacio degenerado. Se observa que $\widehat{L}^2$ conmuta con 
+$\widehat{H_f}$ (\ref{102}).
+
+\begin{equation}
+\label{102} [\widehat{L}^2,\widehat{H_f}]=0
+\end{equation}
+
+ Debido a esto se tiene una matriz como se muestra a continuación:
+ 
+ 
+ 
+ \[  \left( \begin{array}{ccc}
+  \widehat{M}_2 & \widehat{0}_{2\times6}   \\
+ \widehat{0}_{6\times2}   &  \widehat{M}_6 
+  \end{array} \right)
+           \]
+ 
+ 
+ Donde $\widehat{M}_6$ es una matriz $6\times6$  y $\widehat{M}_2$ una $2\times2$. $\widehat{M}_2$ esta dada por: 
+ 
+ 
+ \[  \widehat{M}_2 = \left( \begin{array}{ccc}
+  \gamma & 0   \\
+  0   & \gamma 
+   \end{array} \right)
+            \]
+  
+ 
+ \begin{equation}
+ \label{103} \gamma= -\frac{5}{8} m_e c^2 \alpha^4
+ \end{equation}
+ 
+ 
+ Para calcular $\widehat{M}_6$ se observa lo siguiente:
+ 
+ 
+ 
+ 
+ \begin{equation}
+  \label{104} [\underset{\rightarrow}{\widehat{L}},\widehat{H}_{mv}]=0
+  \end{equation}
+  
+ 
+  \begin{equation}
+   \label{105} [\underset{\rightarrow}{\widehat{L}},\widehat{H}_{D}]=0
+   \end{equation}
+ 
+ 
+ 
+  \begin{equation}
+   \label{106} \braket{\widehat{H}_{mv}}_{2p} = -\frac{7}{384} m_e c^2 \alpha^4
+   \end{equation}
+ 
+ 
+   \begin{equation}
+    \label{107} \braket{\widehat{H}_{D}}_{2p} = 0
+    \end{equation}
+  
+ 
+ Para $\widehat{H}_{SO}$ se procede así:
+ 
+ 
+    \begin{equation}
+     \label{108} \xi_{2p} = \frac{e^2}{2m_e^2 c^2}\int_{\mathbb{R}}\frac{1}{r^3}|R_{2,1}(r)|^2 r^2 dr
+     \end{equation}
+ 
+ 
+ 
+  \begin{equation}
+      \label{109} \xi_{2p} = \frac{m_e c^2 \alpha^4}{48 \hbar^2}
+      \end{equation}
+ 
+ Ahora usando la base colectiva $\underset{\rightarrow}{\widehat{J}} = \underset{\rightarrow}{\widehat{L}} + \underset{\rightarrow}{\widehat{S}}$, se sabe debido a la teoría de suma de momento angular que $1/2 \leq J \leq 3/2$. Utilizando el truco estandar para estos casos (\ref{111}) se obtiene la expresión (\ref{114}) para $\widehat{H}_{SO}$.
+ 
+ 
+ 
+  
+   \begin{equation}
+       \label{110} \underset{\rightarrow}{\widehat{J}^2} = \underset{\rightarrow}{\widehat{L}^2} + \underset{\rightarrow}{\widehat{S}^2} + 2\underset{\rightarrow}{\widehat{L}}\cdot\underset{\rightarrow}{\widehat{S}}
+       \end{equation}
+ 
+ 
+ 
+ 
+ 
+    \begin{equation}
+        \label{111} \underset{\rightarrow}{\widehat{L}}\cdot\underset{\rightarrow}{\widehat{S}}=\frac{1}{2}\left( \underset{\rightarrow}{\widehat{J}^2} - \underset{\rightarrow}{\widehat{L}^2} - \underset{\rightarrow}{\widehat{S}^2} \right)
+        \end{equation}
+ 
+ 
+  
+  
+     \begin{equation}
+         \label{112} \underset{\rightarrow}{\widehat{L}}\cdot\underset{\rightarrow}{\widehat{S}}=\frac{1}{2}\left( \underset{\rightarrow}{\widehat{J}^2} -2\hbar^2 - \frac{3}{4}\hbar^2 \right)
+         \end{equation}
+ 
+ 
+ 
+ 
+   
+      \begin{equation}
+          \label{113} \underset{\rightarrow}{\widehat{L}}\cdot\underset{\rightarrow}{\widehat{S}}=\frac{1}{2}\left( \underset{\rightarrow}{\widehat{J}^2}  - \frac{11}{4}\hbar^2 \right)
+          \end{equation}
+ 
+ 
+ 
+       \begin{equation}
+           \label{114} \widehat{H}_{SO}= \xi_{2p} \underset{\rightarrow}{\widehat{L}}\cdot\underset{\rightarrow}{\widehat{S}}=\frac{\xi_{2p}}{2}\left( \underset{\rightarrow}{\widehat{J}^2}  - \frac{11}{4}\hbar^2 \right)
+           \end{equation}
+ 
+ 
+ Con esta última expresión se pueden encontrar los elementos que faltan:
+ 
+ 
+  \begin{equation}
+             \label{115} \widehat{H}_{SO} \ket{l=1,s=1/2,J,M} = \frac{\hbar^2 \xi_{2p}}{2}\left[J(J+1)- \frac{11}{4}\right]\ket{l=1,s=1/2,J,M}
+             \end{equation}
+   
+ 
+ 
+ 
+   \begin{equation}
+              \label{116} J = \frac{1}{2} \qquad \longrightarrow \qquad -\frac{m_e c^2 \alpha^4}{48}
+              \end{equation}
+    
+  
+
+
+   \begin{equation}
+              \label{117} J = \frac{3}{2} \qquad \longrightarrow \qquad \frac{m_e c^2 \alpha^4}{96}
+              \end{equation}
+
+
+
+
+
+
+
+
+\section{Estructura Hiper-fina del Átomo de Hidrógeno}
+
+Para dar cuenta de la estructura hiper fina del átomo de hidrógeno para la energía fundamental, se toma en cuenta el acoplamiento del espín asociado al protón con el del electrón. El hamiltoniano para dicha interacción esta dado por (\ref{118}):
+
+
+
+ 
+       \begin{equation}
+           \label{118} \widehat{H}_{hf}= \frac{4 g_p m_e^2 c^2 \alpha^4}{3m_p \hbar^2} \left(1 + \frac{m_e}{m_p}\right)^{-3} \underset{\rightarrow}{\widehat{I}}\cdot\underset{\rightarrow}{\widehat{S}}
+           \end{equation}
+
+
+
+Nuevamente se utiliza el momento angular total  $\underset{\rightarrow}{\widehat{F}} = \underset{\rightarrow}{\widehat{I}} + \underset{\rightarrow}{\widehat{S}}$
+
+
+   \begin{equation}
+           \label{119} \widehat{H}_{hf}\ket{F,M_F}= \frac{2 g_p m_e^2 c^2 \alpha^4}{3m_p } \left(1 + \frac{m_e}{m_p}\right)^{-3}\left[F(F+1) -\frac{3}{2}\right]\ket{F,M_F}
+           \end{equation}
+
+Por lo que los cambios de energía son:
+
+
+
+
+
+   \begin{equation}
+           \label{120}F=0 \qquad\longrightarrow\qquad \Delta E= -\frac{ g_p m_e^2 c^2 \alpha^4}{m_p } \left(1 + \frac{m_e}{m_p}\right)^{-3}
+           \end{equation}
+
+
+
+   \begin{equation}
+           \label{121}F=1 \qquad\longrightarrow\qquad \Delta E= \frac{ g_p m_e^2 c^2 \alpha^4}{3m_p } \left(1 + \frac{m_e}{m_p}\right)^{-3}
+           \end{equation}
+ 
+ 
+Este resultado explica por que el degeneramiento se rompe parcialmente. Para $F=1$ hay tres estados a los cuales se les aumenta la energía mientras que para el único estado de $F=0$ la energía baja. Es decir, ahora se tiene un degeneramiento triple y no cuádruple como se tenía.           
+La separación entre los nuevos estados es:           
+           
+    \begin{equation}
+               \label{121.1}\Delta E_{hf}= 
+                         \frac{ 4g_p m_e^2 c^2 \alpha^4}{3m_p} \left(1 + \frac{3m_e }{m_p}\right)^{-3} 
+               \end{equation}
+   \begin{equation}
+               \label{121.2}\Delta E_{hf} = 1420405751.768 \pm 0.001 Hz
+               \end{equation}
+\begin{equation}
+               \label{121.3}\Delta E_{hf} \sim 1 \; GHz \sim 21 cm \qquad \longrightarrow \qquad \text{Radiofrecuencia}
+               \end{equation}
+               
+               
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale = 0.42]{hiperfinoenergia}
+	\caption{Se observa un rompimiento parcial del degeneramiento del estado fundamental}
+	\label{fig1}
+	\end{figure}
+
+               
+               
+\section{Efecto Zeeman en la Estructura Hiper fina del Átomo de Hidrógeno para n=1}
+
+
+Ahora se aplica un campo magnético paralelo a la dirección $\hat{z}$. Debido a este campo aparecen 3 acoplamientos:  debido al espín del protón y debido al espín y translación del electrón. El hamiltoniano debido a este acoplamiento, $\widehat{H}_z$ es dado por la expresión (\ref{122}).
+
+
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale = 0.42]{zeemandibujo}
+	\caption{Átomo de hidrógeno sometido a un campo magnético en la dirección $\hat{z}$}
+	\label{fig1}
+	\end{figure}
+
+
+
+
+
+\begin{equation}
+\label{122} \widehat{H}_z = - \vec{B} \cdot \left[\underset{\rightarrow}{M}_T + \underset{\rightarrow}{M}_S  + \underset{\rightarrow}{M}_I   \right]
+\end{equation}
+
+
+
+
+\begin{equation}
+\label{123} = \omega_0 \left(\widehat{L}_z +2 \widehat{S}_z\right)   + \omega_n \widehat{I}_z
+\end{equation}
+
+Donde las frecuencias de Larmor son:
+
+
+
+\begin{equation}
+\label{124} \omega_0 = -\frac{q_e B}{2m_e}
+\end{equation}
+
+
+\begin{equation}
+\label{125} \omega_n = -\frac{q_p  g_p B}{2M_p}
+\end{equation}
+
+Como se esta analizando el caso $n=1$, se tiene que $l=0$ por lo que $\widehat{L}_z$ no contribuye a la perturbación para este nivel. Declarando la variable "$A$" para simplificar la notación y observando que $|\widehat{H}_z| \sim |\widehat{H}_{hf}|$ se tiene el término perturbativo dado por (\ref{127})
+
+
+\begin{equation}
+\label{126} A \equiv \frac{ 4g_p m_e^2 c^2 \alpha^4}{3m_p\hbar^2 } \left(1 + \frac{3m_e }{m_p}\right)^{-3}
+\end{equation}
+
+
+\begin{equation}
+\label{127}\widehat{W} = A \;\widehat{I}\cdot \widehat{S} + 2 \omega_0 \widehat{S}_z + \omega_n \widehat{I}_z
+\end{equation}
+
+Se observa que $\omega_n \ll \omega_0$, por lo que se puede despreciar también el término $\widehat{I}_z$.
+
+\begin{equation}
+\label{128}\widehat{W} = A \;\underset{\rightarrow}{\widehat{I}}\cdot \underset{\rightarrow}{\widehat{S}} + 2 \omega_0 \widehat{S}_z 
+\end{equation}
+
+Utilizando la representación $\ket{F,M_F}$, se obtienen las siguientes matrices para las perturbaciones:\\[0.1cm]
+
+
+
+ 
+ \[ A \;\underset{\rightarrow}{\widehat{I}}\cdot \underset{\rightarrow}{\widehat{S}}=  \frac{A\hbar^2}{4}\left(  \begin{array}{cccc}
+\ket{1,1} & \ket{1,-1}  & \ket{1,0}  &\ket{0,0}   \\
+ 1 & 0 & 0 & 0  \\
+0  & 1 & 0 & 0   \\
+       0 & 0 & 1 & 0  \\
+        0 & 0 & 0 & 1  \\
+     
+  \end{array} \right)
+           \]\\[0.1cm]
+
+
+ 
+ \[ 2\omega_0\widehat{S}_z=  \hbar\omega_0\left(  \begin{array}{cccc}
+\ket{1,1} & \ket{1,-1}  & \ket{1,0}  &\ket{0,0}   \\
+ 1 & 0 & 0 & 0  \\
+0  & -1 & 0 & 0   \\
+       0 & 0 & 0 & 1  \\
+        0 & 0 & 1 & 0  \\
+     
+  \end{array} \right)
+           \]
+
+Tras hacer los cálculos se obtienen las siguientes energías:
+
+\begin{equation}
+\label{130}E_1 =  \frac{A\hbar^2}{4} + \hbar\omega_0
+\end{equation}
+
+\begin{equation}
+\label{131}E_1 =  \frac{A\hbar^2}{4} - \hbar\omega_0
+\end{equation}
+
+\begin{equation}
+\label{132}E_1 =  -\frac{A\hbar^2}{4} + \sqrt{\frac{A^2\hbar^4}{16} +\hbar^2\omega_0^2 }
+\end{equation}
+
+\begin{equation}
+\label{133}E_1 =  -\frac{A\hbar^2}{4} - \sqrt{\frac{A^2\hbar^4}{16} +\hbar^2\omega_0^2 }
+\end{equation}
+
+Se observa que debido al efecto Zeeman hay un desdoblamiento de la energía fundamental. Se pasa de un degeneramiento de cuarto orden a cuatro estados no degenerados.
+
+
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale = 0.42]{zeemanenergia}
+	\caption{Estado fundamental desdoblado por el campo magnético}
+	\label{fig}
+	\end{figure}
+
+
+\textbf{ Nuclear Magnetic Resonance (NMR): 2 Spins 1/2 + Interacción Dipolar}\\[0.1cm]
+
+
+
+
+\begin{equation}
+\label{N.1} \widehat{H}_0 = \omega_1 \widehat{S}_{z_1} + \omega_2 \widehat{S}_{z_2} 
+\end{equation}
+
+\begin{equation}
+\label{N.2} \widehat{V}_{DD} = \frac{\mu_0 \gamma_1\gamma_2}{4\pi r^3} \left( \underset{\rightarrow}{\widehat{S}_{1} }\cdot\underset{\rightarrow}{\widehat{S}_{2} } -3\left( \underset{\rightarrow}{\widehat{S}_{1} }\cdot \hat{n}\right)\left( \underset{\rightarrow}{\widehat{S}_{2} }\cdot \hat{n}\right) \right)  
+\end{equation}
+
+Se tratara el problema en el que se tiene un sistema de dos partículas con spin. Se modela la interacción dipolo-dipolo con el potencial $\widehat{V}_{DD}$ dado por (\ref{N.2}). 
+\begin{equation}
+\label{N.3} \widehat{H} = \widehat{H}_0 + \widehat{V}_{DD} 
+\end{equation}
+
+El hamiltoniano total consiste en la contribución Zeeman dada por el termino $\widehat{H}_0$ + la interacción dipolo-dipolo. Para este modelo se toman $r,\theta \;\& \;\phi$ fijos. 
+
+
+
+\begin{equation}
+\label{N.4} |\widehat{H}_0| \gg |\widehat{V}_{DD}| 
+\end{equation}
+
+Como la contribución Zeeman es mucho mayor a la contribución dipolo-dipolo se puede utilizar teoría de perturbaciones a primer orden para ver el efecto del potencial $\widehat{V}_{DD}$.
+
+
+\begin{equation}
+\label{N.5} \widehat{H}_0 \ket{\epsilon_1,\epsilon_2} = \frac{\hbar}{2} \left( \epsilon_1\omega_1 + \epsilon_2\omega_2  \right)\ket{\epsilon_1,\epsilon_2}
+\end{equation}
+
+
+\begin{equation}
+\label{N.6} \epsilon_1,\epsilon_2 = \pm 1
+\end{equation}
+
+La acción del hamiltoniano Zeeman se conoce (\ref{N.5}). El hamiltoniano perturbativo se puede reescribir introduciendo los tensores esféricos irreducibles:
+
+\begin{equation}
+\label{N.7} \widehat{T}_0 = \left(3\cos^2\theta -1 \right)\widehat{S}_{z_1}\widehat{S}_{z_2} 
+\end{equation}
+
+\begin{equation}
+\label{N.8} \widehat{T}_0' = -\frac{1}{4}\left(3\cos^2\theta -1 \right)\left(\widehat{S}_{1}^+\widehat{S}_{2}^- + \widehat{S}_{1}^-\widehat{S}_{2}^+\right)
+\end{equation}
+
+\begin{equation}
+\label{N.9} \widehat{T}_{\pm 1} = \frac{3}{2}   \sin\theta\cos\theta e^{\mp i\phi}\left(\widehat{S}_{z_1}\widehat{S}_{2}^{\pm} + \widehat{S}_{1}^{\pm}\widehat{S}_{z_2}\right)
+\end{equation}
+
+
+\begin{equation}
+\label{N.10} \widehat{T}_{\pm 2} = \frac{3}{2}   \sin^2\theta e^{\mp 2i\phi}\;\widehat{S}_{1}^{\pm}\widehat{S}_{2}^{\pm}
+\end{equation}
+
+Además de los tensores armónicos esféricos se introduce la función radial $\xi(r)$:
+
+
+\begin{equation}
+\label{N.11} \xi(r) = -\frac{\mu_0 \gamma_1\gamma_2}{4\pi}
+\end{equation}
+
+
+
+\begin{equation}
+\label{N.12} \widehat{V}_{DD} = \xi(r) \left[ \widehat{T}_0 + \widehat{T}_0' +\widehat{T}_{1} + \widehat{T}_{-1} +\widehat{T}_{2} + \widehat{T}_{-2}   \right]
+\end{equation}
+
+
+Con la función radial y los tensores armónicos esféricos se obtiene la expresión (\ref{N.12}) para el potencial dipolo-dipolo. Primero se tratara el caso en que $\omega_1 \neq \omega_2$.\\
+
+
+\textbf{Caso No Degenerado: }$\omega_1 \neq \omega_2$\\
+
+También se asume $\omega_1>\omega_2$.
+
+\begin{figure}[H]
+ \label{fig12}	\centering
+ 	\includegraphics[scale = 0.27]{12}
+ 	\caption{Frecuencias de Resonancia: Caso no degenerado sin perturbar}
+ 	\label{f12}
+ \end{figure}
+
+Para $\omega_1 \neq \omega_2$ no hay degeneramiento en las energías por lo que con teoría de perturbaciones hasta primer orden basta con calcular el elemento $\braket{\epsilon_1 ,\epsilon_2| \widehat{V}_{DD} |\epsilon_1 ,\epsilon_2}$. 
+
+\begin{equation}
+\label{N.13} \widehat{V}_{DD} \simeq \xi(r) \left(3\cos^2\theta -1 \right)\widehat{S}_{z_1}\widehat{S}_{z_2} 
+\end{equation}
+
+Se observa que únicamente el tensor irreducible $\widehat{T}_0$ contribuye a la energía a primer orden.
+
+
+
+\begin{equation}
+\label{N.14} 
+\braket{\epsilon_1 ,\epsilon_2| \widehat{V}_{DD} |\epsilon_1 ,\epsilon_2} = \xi(r) \left(3\cos^2\theta -1 \right) \braket{\epsilon_1 ,\epsilon_2| \widehat{S}_{z_1}\widehat{S}_{z_2}|\epsilon_1 ,\epsilon_2} 
+\end{equation}
+
+\begin{equation*}
+=\xi(r) \left(3\cos^2\theta -1 \right)\frac{\hbar^2}{4} \epsilon_1 \epsilon_2 = \epsilon_1 \epsilon_2 \hbar \Omega
+\end{equation*}
+
+
+En la ecuación (\ref{N.14}) se desarrolla el elemento matricial $\braket{\epsilon_1 ,\epsilon_2| \widehat{V}_{DD} |\epsilon_1 ,\epsilon_2}$, teniendo en cuenta solo el término que contribuye.
+
+\begin{equation}
+\label{N.15} 
+\Omega = \frac{\hbar\;\xi(r)}{4}\left(3\cos^2\theta -1 \right)
+\end{equation}
+
+
+\begin{equation}
+\label{N.16} 
+\braket{\epsilon_1 ,\epsilon_2| \widehat{V}_{DD} |\epsilon_1 ,\epsilon_2} =  \epsilon_1 \epsilon_2 \hbar \Omega
+\end{equation}
+
+En (\ref{N.16}) se obtiene la expresión para la corrección a primer orden de la energía. Aunque no se muestra acá, solo pueden haber transiciones que solo cambien un spin a la vez. 
+
+\begin{figure}[H]
+ \label{fig12d}	\centering
+ 	\includegraphics[scale = 0.27]{w1w2}
+ 	\caption{Frecuencias de Resonancia: Caso no degenerado con la perturbación}
+ 	\label{f12d}
+ \end{figure}
+
+\textbf{Caso Degenerado: }$\omega_1 = \omega_2$\\
+
+
+
+\begin{figure}[H]
+ \label{figw}	\centering
+ 	\includegraphics[scale = 0.27]{w}
+ 	\caption{Frecuencias de Resonancia: Caso degenerado sin la perturbación}
+ 	\label{fw}
+ \end{figure}
+ 
+
+\[   \widehat{V}_{DD}  = -\hbar\;\Omega \left(  \begin{array}{cc}
+ 1 & 1   \\
+1  & 1    \\
+       \end{array} \right)
+           \]\\[0.1cm]
+
+De la matriz $ \widehat{V}_{DD}$ del subespacio degenerado se obtienen las correcciones a primer orden de la energía y de orden cero para los estados.
+
+
+
+
+\begin{equation}
+\label{N.17} \ket{\psi_1} = \frac{1}{\sqrt{2}} \left[ \ket{+,-} + \ket{-,+} \right] \quad \longrightarrow \quad \Delta E = 0
+\end{equation}
+
+
+
+
+\begin{equation}
+\label{N.18} \ket{\psi_2} = \frac{1}{\sqrt{2}} \left[ \ket{+,-} - \ket{-,+} \right] \quad \longrightarrow \quad \Delta E = -2\hbar \Omega
+\end{equation}
+
+
+
+\begin{figure}[H]
+ \label{figwd}	\centering
+ 	\includegraphics[scale = 0.27]{wd}
+ 	\caption{Frecuencias de Resonancia: Caso degenerado con la perturbación}
+ 	\label{fwd}
+ \end{figure}
+ 
+
+
+
+
+
+\end{document}
